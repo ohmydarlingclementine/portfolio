@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<!--
+=====================================================================================
+  LINA ORUNDAS — PORTFOLIO v3 (COLOR + EDITORIAL)  ·  EASY EDIT GUIDE
+=====================================================================================
+  Press Ctrl+F (Cmd+F on Mac) and search  ✏️  to jump to every spot you can change.
+
+  PAGE ORDER
+    Intro → Cover → Scrolling words → Profile (resume-style) → Table of contents (poster-style loop)
+    → WORK: 1 Graphic design & illustration · 2 Branding & marketing · 3 Social media & photography
+            · 4 Editorial writing · 5 UX / UI  → Contact
+
+  WHERE TO CHANGE WHAT
+  ---------------------------------------------------------------------------------
+  Colors                      -> black & white + ONE title color: CSS ":root" --blue (used only for titles)
+  Name color / script color   -> --name-color, --script-color (":root")
+  Photos in color or B&W      -> --img-filter  (none = color, grayscale(1) = black & white)
+  Intro length                -> SCRIPT section 0, INTRO_MS
+  Top bar text                -> HTML "TOP BAR" (the center text says "Lina Orundas — Portfolio")
+  Cover words + polaroid      -> HTML "COVER"  (polaroid photo = images/me.jpg)
+  Profile (resume-style)      -> HTML "PROFILE" (each line has --s = how far it is pushed in)
+  Table of contents (loop)    -> HTML "TABLE OF CONTENTS" (6 cards; each card has its own pop-up text) + SCRIPT section 4
+  Work sections               -> HTML "WORK" (each section has a "rail" = side text + a right side with pictures)
+  Pop-up text for projects    -> inside each project: <div class="info" hidden> ... </div>   (write your text there!)
+  Behance links               -> search "behance.net" (case study, UX cards, buttons)
+  Contact / email             -> HTML "CONTACT"  (+ MY_EMAIL in SCRIPT section 6)
+
+  FONTS
+  ---------------------------------------------------------------------------------
+  Bodoni Moda   = ONLY "Lina Orundas"          Pinyon Script = ONLY "creative portfolio"
+  Cormorant     = editorial serif: ( headings ), big intro lines, quotes, drop caps
+  Inter Tight   = big titles + readable body    DM Mono = small [ labels ] and staggered lists
+
+  IMAGES: put pictures in a folder called  images/  next to this file. Missing picture = a colored
+  box that shows the file name it expects. Names used:
+    me.jpg · design-1..3 · illus-1..3 · draw-1..4 · brand-case · brand-1..3 · social-1..3
+    photo-1..7 (photo-5 = DJ small picture) · editorial-1..3 · ux-case · ux-2 · ux-3
+=====================================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lina Orundas — Portfolio</title>
+<meta name="description" content="Lina Orundas — multidisciplinary designer and creative based in Sweden. Graphic design, illustration, branding, marketing & SEO, social media, photography, editorial writing and UX/UI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<noscript><style>.reveal,.shot,.b,.ux-card,[data-split],.hn-in,.hero-polaroid,.hero-meta,.hero-line,.hero-text,.hero-foot{opacity:1!important;transform:none!important;clip-path:none!important}#intro{display:none}</style></noscript>
+
+<style>
+/* =====================================================================
+   1. SETTINGS  ✏️ colors + fonts live here
+   ===================================================================== */
+:root{
+  --paper:#FFFFFF;          /* page background                        */
+  --ink:#0A0A0A;            /* text + lines                           */
+  --muted:#4F4F4F;          /* secondary text                         */
+  --line:rgba(10,10,10,.16);
+
+  /* ✏️ ONE COLOR, used only for TITLES. Everything else is black & white. Change this one number to recolor all titles. */
+  --blue:#2E26FF;
+
+  --title-color:var(--blue);  /* ✏️ big titles on the sides + section titles */
+  --name-color:#0A0A0A;       /* ✏️ "Lina Orundas"                           */
+  --script-color:var(--blue); /* ✏️ "creative portfolio" (calligraphy)       */
+  --accent:var(--blue);
+  --img-filter:none;          /* ✏️ none = color photos. grayscale(1) = black & white */
+
+  --f-name:'Bodoni Moda',Georgia,serif;                   /* ONLY the name        */
+  --f-script:'Pinyon Script','Snell Roundhand',cursive;   /* ONLY the cursive title */
+  --f-serif:'Cormorant Garamond',Georgia,serif;           /* editorial serif      */
+  --f-main:'Inter Tight',Helvetica,Arial,sans-serif;      /* titles + body        */
+  --f-mono:'DM Mono',ui-monospace,monospace;              /* labels + lists       */
+
+  --pad:clamp(20px,4vw,56px);
+  --max:1380px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-main);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--blue);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+section[id],article[id]{scroll-margin-top:96px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.info{display:none}
+
+/* ----- text styles used everywhere (so everything feels editorial) ----- */
+.mono{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:400}
+.amp{font-family:var(--f-serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0}
+.big{font-family:var(--f-main);font-weight:700;font-size:clamp(52px,9.5vw,150px);line-height:.84;letter-spacing:-.06em;text-transform:uppercase;color:var(--title-color)}
+.stand{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:clamp(22px,2.2vw,30px);line-height:1.15;color:var(--ink)}     /* intro line under a title */
+.copy p{font-size:16.5px;line-height:1.7;color:#1c1c1c;margin-bottom:1em;max-width:62ch}                                                  /* readable body text */
+.copy.cols{columns:2;column-gap:36px}
+.copy.cols p{max-width:none;break-inside:avoid-column}
+.dropcap::first-letter{font-family:var(--f-serif);font-weight:500;float:left;font-size:4.6em;line-height:.78;padding:.05em .1em 0 0;color:var(--ink)}   /* big first letter */
+.pull{font-family:var(--f-serif);font-style:italic;font-size:clamp(26px,3vw,40px);line-height:1.12;border-left:4px solid var(--ink);padding-left:20px;margin:6px 0 30px;max-width:30ch}   /* pull quote */
+.paren{font-family:var(--f-serif);font-weight:400;font-size:clamp(26px,2.6vw,34px);line-height:1;color:var(--title-color)}   /* ( Heading ) like your reference */
+.paren.xl{font-size:clamp(40px,5vw,72px)}
+.stagger{list-style:none;font-family:var(--f-mono);font-size:13.5px;line-height:1.75}
+.stagger li{padding-left:calc(var(--s,0)*1.2ch)}   /* --s = how far the line is pushed in (0 = not at all) */
+.dot{position:absolute;border-radius:50%;width:var(--d,28px);height:var(--d,28px);background:var(--c);pointer-events:none;z-index:0}   /* decorative colored circles */
+
+/* image placeholder (a colored box that shows the file name) */
+.ph{position:relative;overflow:hidden;background:#EDEDED;display:flex;align-items:center;justify-content:center}
+.ph::after{content:attr(data-ph);font-family:var(--f-mono);font-size:10px;color:var(--muted);padding:10px;text-align:center;text-transform:none}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:var(--img-filter);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+
+/* =====================================================================
+   2. SCROLL ANIMATIONS
+   ===================================================================== */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--k,0)*90ms)}
+.reveal.revealed{opacity:1;transform:none}
+.shot .ph,.b .ph,.ux-card .ph{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s cubic-bezier(.76,0,.24,1);transition-delay:calc(var(--k,0)*110ms)}
+.shot.revealed .ph,.b.revealed .ph,.ux-card.revealed .ph{clip-path:inset(0)}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .12em;margin-bottom:-.12em}
+.w>span{display:inline-block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--k)*70ms)}
+[data-split].revealed .w>span{transform:none}
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:#fff;mix-blend-mode:difference;transform-origin:left;transform:scaleX(0);z-index:2500}
+
+/* =====================================================================
+   3. INTRO (~1.5 sec)
+   ===================================================================== */
+#intro{position:fixed;inset:0;z-index:3000;background:var(--ink);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;cursor:pointer;transition:transform .7s cubic-bezier(.76,0,.24,1)}
+#intro.out{transform:translateY(-100%)}
+.in-name{font-family:var(--f-name);font-style:italic;font-size:clamp(50px,10vw,124px);line-height:1.05;letter-spacing:-.045em;padding:0 .12em .1em}
+.in-name span{display:block;clip-path:inset(-12% 100% -12% 0);animation:inWipe .9s cubic-bezier(.65,0,.35,1) .1s forwards}
+@keyframes inWipe{to{clip-path:inset(-12% -8% -12% -4%)}}
+.in-bar{width:min(260px,60vw);height:1px;background:rgba(255,255,255,.3);overflow:hidden}
+.in-bar i{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.in-meta{display:flex;justify-content:space-between;width:min(260px,60vw);color:rgba(255,255,255,.8)}
+
+/* =====================================================================
+   4. TOP BAR  (3 parts: links · center title · stamps + contact)
+   ===================================================================== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;transition:padding .35s}
+.nav.scrolled{padding:10px 0}
+.topfade{position:fixed;top:0;left:0;right:0;height:92px;background:linear-gradient(#fff 40%,rgba(255,255,255,0));z-index:90;pointer-events:none}
+body.on-dark .topfade{background:linear-gradient(#0A0A0A 40%,rgba(10,10,10,0))}
+body.on-dark .nav{--ink:#fff;color:#fff}
+.nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
+.nav-links{display:flex;gap:22px}
+.nav-links a,.nav-right a{position:relative;padding:4px 0}
+.nav-links a::after,.nav-right a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+\1.nav-logo{font-weight:800;font-size:clamp(12px,1.4vw,17px);letter-spacing:-.02em;text-transform:uppercase;line-height:1;text-align:center;white-space:nowrap}
+.nav-logo em{font-family:var(--f-serif);font-weight:500;letter-spacing:0;text-transform:none;font-size:1.15em;color:var(--blue)}
+.nav-right{display:flex;gap:22px;justify-content:flex-end;align-items:center}
+
+/* =====================================================================
+   5. COVER
+   ===================================================================== */
+.hero{min-height:100svh;display:flex;flex-direction:column;padding:92px 0 24px;position:relative;overflow:hidden}
+.hero .wrap{width:100%;flex:1;display:flex;flex-direction:column;opacity:var(--ho,1);transform:translateY(var(--hy,0px));will-change:opacity,transform;position:relative;z-index:1}
+.hero-meta{display:flex;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line);opacity:0}
+.hero-main{flex:1;display:grid;grid-template-columns:1fr auto;grid-template-areas:"name pol" "text pol";align-content:center;align-items:start;column-gap:clamp(24px,4vw,64px);row-gap:clamp(14px,2vw,26px);padding:clamp(14px,2.4vw,34px) 0 0}
+.hero-title{grid-area:name;min-width:0}
+/* ✏️ NAME: font-size = how big. letter-spacing = how tight. */
+.hero-name{font-family:var(--f-name);font-weight:400;font-size:clamp(70px,14vw,220px);line-height:.86;letter-spacing:-.055em;font-variation-settings:"opsz" 96;color:var(--name-color)}
+.hn-line{display:block}
+.hn-line:nth-child(2){font-style:italic}
+.hn-in{display:block;clip-path:inset(-12% 100% -12% 0)}
+body.loaded .hn-in{clip-path:inset(-12% -8% -12% -4%);transition:clip-path 1.2s cubic-bezier(.65,0,.35,1)}
+body.loaded .hn-line:nth-child(2) .hn-in{transition-delay:.3s}
+.hero-sub{font-family:var(--f-script);font-size:clamp(40px,6.2vw,92px);line-height:1;margin-top:.06em;color:var(--script-color)}
+body.loaded .hero-sub .hn-in{transition-delay:.75s}
+.hero-express{grid-area:text;max-width:60ch}
+.hero-line{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:clamp(24px,2.7vw,40px);line-height:1.08;max-width:22ch;opacity:0}
+.hero-text{font-size:16.5px;line-height:1.7;max-width:50ch;margin-top:14px;opacity:0}
+.hero-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--line);opacity:0}
+body.loaded .hero-meta,body.loaded .hero-line,body.loaded .hero-text,body.loaded .hero-foot{animation:fadeUp 1s cubic-bezier(.16,1,.3,1) forwards}
+body.loaded .hero-line{animation-delay:.9s}
+body.loaded .hero-text{animation-delay:1s}
+body.loaded .hero-foot{animation-delay:1.1s}
+@keyframes fadeUp{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
+/* polaroid: bigger, in color, with a colored circle on its corner. ✏️ size: change 26vw. tilt: 2deg */
+.hero-polaroid{grid-area:pol;position:relative;width:clamp(220px,26vw,390px);margin-top:clamp(6px,1.2vw,16px);background:#fff;padding:14px 14px 0;border:1px solid var(--line);box-shadow:0 34px 70px -26px rgba(0,0,0,.4);transform:rotate(2deg);opacity:0}
+body.loaded .hero-polaroid{opacity:1;animation:polIn 1.2s cubic-bezier(.16,1,.3,1) .3s backwards}
+@keyframes polIn{from{opacity:0;translate:0 60px}}
+.hero-polaroid .ph{aspect-ratio:1/1.16}
+.hero-polaroid figcaption{padding:14px 2px 16px;display:flex;justify-content:space-between}
+
+/* =====================================================================
+   6. SCROLLING WORDS
+   ===================================================================== */
+.marquee{background:var(--ink);color:#fff;overflow:hidden;white-space:nowrap;padding:15px 0}
+.marquee-track{display:inline-flex;animation:mq 46s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{font-weight:600;font-size:clamp(16px,2vw,26px);letter-spacing:-.02em;text-transform:uppercase;padding:0 22px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* =====================================================================
+   7. SECTIONS (shared)
+   ===================================================================== */
+.sec{padding:clamp(60px,8vw,110px) 0 0;position:relative}
+.sec-top{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--ink);margin-bottom:clamp(28px,4vw,56px)}
+.dark{--paper:#0A0A0A;--ink:#fff;--muted:#a8a8a8;--line:rgba(255,255,255,.22);--title-color:#9C97FF;background:var(--paper);color:var(--ink)}
+.dark.sec{padding-bottom:clamp(60px,8vw,110px)}
+
+/* PROFILE (resume-style typography) */
+.profile{overflow:hidden}
+.profile-grid{display:grid;grid-template-columns:34px 1.35fr 1fr;gap:clamp(24px,4vw,64px);position:relative;z-index:1}
+.vert{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--f-serif);font-size:30px;letter-spacing:.04em;text-transform:none;justify-self:start}
+.pf-about .copy{margin:26px 0 40px}
+.pf-about .copy p{padding-left:calc(var(--s,0)*1.4ch)}
+.pf-tag{display:inline-block;font-family:var(--f-mono);font-weight:500;font-size:13px;margin:0 0 34px}
+.pf-tag b{text-decoration:underline;font-style:italic}
+.pf-block{margin-bottom:38px}
+.pf-block .paren{margin-bottom:14px}
+.pf-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px)}
+
+/* TABLE OF CONTENTS — poster style: a giant cropped word, and the chapter cards slide over it (like your reference) */
+.toc{padding-bottom:clamp(40px,5vw,70px);overflow:hidden}
+.toc-top{font-weight:700;font-size:clamp(20px,3.4vw,48px);letter-spacing:-.045em;line-height:1;text-transform:uppercase;max-width:32ch;margin-bottom:clamp(8px,1.6vw,22px)}
+.toc-stage{position:relative}
+/* ✏️ the giant word: change the word in the HTML, or font-size here. It is meant to be cropped by the screen edge. */
+.toc-giant{font-family:var(--f-serif);font-weight:500;font-size:clamp(120px,27vw,430px);line-height:.74;letter-spacing:-.05em;text-transform:uppercase;color:var(--title-color);white-space:nowrap;margin-left:-.04em;user-select:none;pointer-events:none}
+.toc-vert{position:absolute;right:var(--pad);top:6%;writing-mode:vertical-rl;z-index:3;background:#fff;padding:8px 4px}
+.loop{position:relative;z-index:2;margin-top:clamp(-170px,-12vw,-60px);overflow:hidden;padding:12px 0 18px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.loop-track{display:flex;width:max-content;will-change:transform}
+.toc-card{flex:0 0 clamp(240px,23vw,300px);margin-right:16px;border:1px solid var(--ink);background:#fff;color:var(--ink);padding:18px;display:flex;flex-direction:column;gap:8px;min-height:200px;cursor:pointer;transition:background .3s,color .3s,transform .35s cubic-bezier(.16,1,.3,1)}
+.toc-card h4{font-weight:700;font-size:22px;line-height:1;letter-spacing:-.04em;text-transform:uppercase}
+.toc-card p{font-size:14px;color:var(--muted);line-height:1.5;flex:1;transition:color .3s}
+.toc-card:hover,.toc-card:focus-visible{background:#0A0A0A;color:#fff;transform:translateY(-6px)}
+.toc-card:hover p,.toc-card:focus-visible p{color:#cfcfcf}
+.toc-foot{display:flex;justify-content:space-between;gap:12px;padding-top:14px;border-top:1px solid var(--ink);margin-top:10px}
+.flip{display:inline-block;transform:rotate(180deg)}
+
+/* WORK — every section uses the same "rail" layout: side text (sticky) + right side with pictures */
+.work-title{margin-bottom:clamp(24px,4vw,48px)}
+.seg{border-top:2px solid var(--ink);padding:22px 0 clamp(50px,6vw,90px)}
+.rail{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:clamp(24px,4vw,64px);align-items:start}
+.rail-side{position:relative;z-index:0}
+.rail-main{position:relative;z-index:1;min-width:0}   /* the pictures always sit above the side text, so nothing covers anything */
+@media(min-width:901px) and (min-height:780px){.rail-side{position:sticky;top:96px;align-self:start}}   /* side text only sticks on tall screens */
+.chip{display:inline-block;border:1px solid var(--ink);padding:3px 10px;margin-bottom:14px}
+.rail-side h3{font-family:var(--f-main);font-weight:700;font-size:clamp(32px,3.6vw,52px);line-height:.9;letter-spacing:-.055em;text-transform:uppercase;color:var(--title-color);margin-bottom:16px}
+.rail-side .copy{margin:14px 0 20px}
+.rail-side .paren{font-size:24px;margin:18px 0 10px}
+.tools{margin-top:16px;color:var(--muted)}
+.sub{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin:0 0 18px}
+.sub:not(:first-child){margin-top:clamp(36px,5vw,60px)}
+.sub .paren{font-size:28px}
+.seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.6vw,20px)}
+.shot{cursor:zoom-in}
+.shot .ph{aspect-ratio:4/5}      /* ✏️ picture shape: 4/5 tall · 1/1 square · 3/2 wide */
+.shot:hover .ph img,.b:hover .ph img{transform:scale(1.05)}
+.shot figcaption{display:flex;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid var(--line);margin-top:10px}
+/* BENTO = pictures in different sizes that still line up perfectly (w2/w3/w4 = width, h2 = double height) */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:clamp(110px,13vw,180px);gap:clamp(8px,1.2vw,14px);grid-auto-flow:dense}
+.w2{grid-column:span 2}.w3{grid-column:span 3}.w4{grid-column:span 4}.h2{grid-row:span 2}
+.b{position:relative;overflow:hidden;cursor:zoom-in}
+.b>.ph{position:absolute;inset:0}
+.b figcaption{position:absolute;left:10px;bottom:10px;z-index:2;background:#fff;padding:3px 9px}
+.b-text{background:var(--lime);display:flex;cursor:zoom-in}
+.b-text>.ph{position:relative;inset:auto;width:36%;flex:none}
+.b-text .bt{padding:clamp(12px,2vw,24px);display:flex;flex-direction:column;justify-content:center;gap:6px}
+.b-text h4{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:clamp(24px,2.6vw,36px);line-height:1}
+.b-text p{font-size:14.5px;line-height:1.5}
+/* Branding: case study feature + info cards */
+.case{display:block;position:relative;border:1px solid var(--ink);cursor:zoom-in;margin-bottom:clamp(14px,2vw,24px);background:#fff}
+.case .ph{aspect-ratio:4/3.1;height:auto;width:100%}
+.case-body{display:none!important}
+.case-body h4{font-weight:700;font-size:clamp(26px,3vw,44px);line-height:.92;letter-spacing:-.05em;text-transform:uppercase}
+.case-body p{font-size:15.5px;line-height:1.55;color:#161616}
+.facts{display:flex;flex-wrap:wrap;gap:6px}
+.facts span{border:1px solid var(--ink);padding:3px 9px;background:#fff}
+.case-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:13px 22px;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--ink);transition:background .3s,color .3s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.mini3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.6vw,20px)}
+.mini{border-top:2px solid var(--ink);padding-top:12px}
+.mini h4{font-weight:700;font-size:20px;line-height:1;letter-spacing:-.035em;text-transform:uppercase;margin-bottom:8px}
+.mini p{font-size:14.5px;line-height:1.6;color:var(--muted)}
+/* Editorial writing list */
+.pieces{border-top:1px solid var(--ink)}
+.piece{display:grid;grid-template-columns:44px 1fr auto 70px;gap:16px;align-items:baseline;padding:16px 4px;border-bottom:1px solid var(--line);transition:background .3s,padding .3s}
+.piece:hover{background:#F0F0EE;padding-left:14px}
+.piece h4{font-family:var(--f-serif);font-weight:500;font-size:clamp(22px,2.3vw,30px);line-height:1.05}
+.piece .t{color:var(--muted)}
+.topics{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 26px}
+.topics span{border:1px solid var(--ink);padding:3px 10px}
+/* UX */
+.ux-case{display:grid;grid-template-columns:1.15fr 1fr;border:1px solid var(--ink);background:#fff;margin-bottom:clamp(14px,2vw,24px)}
+.ux-case .ph{aspect-ratio:4/3.1;height:100%}
+.ux-case .case-body{background:var(--ink);color:#fff}
+.ux-case .case-body p{color:#fff}
+.ux-case .btn{background:#fff;color:#0A0A0A;border-color:#fff}
+.ux-case .btn:hover{background:transparent;color:#fff}
+.ux-case:hover .ph img,.ux-card:hover .ph img{transform:scale(1.04)}
+.ux-pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,24px)}
+.ux-card{display:block;border-top:2px solid var(--ink);padding-top:12px}
+.ux-card .ph{aspect-ratio:16/10}
+.ux-meta{padding-top:14px;display:flex;flex-direction:column;gap:6px}
+.ux-meta h4{font-weight:700;font-size:clamp(24px,2.6vw,36px);line-height:.95;letter-spacing:-.05em;text-transform:uppercase}
+.ux-meta p{font-size:15px;color:var(--muted);max-width:44ch}
+.ux-go{margin-top:6px;border-bottom:1px solid var(--ink);align-self:flex-start;padding-bottom:2px}
+.ux-card:hover .ux-go{background:var(--ink);color:var(--paper);padding:2px 8px}
+
+/* CONTACT */
+.contact-lead{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);margin:clamp(28px,4vw,50px) 0 clamp(26px,4vw,44px);align-items:end}
+.contact-lead p{font-size:16.5px;max-width:46ch}
+.mail{display:flex;justify-content:space-between;align-items:baseline;gap:16px;width:100%;text-align:left;font-weight:600;font-size:clamp(24px,5.2vw,76px);letter-spacing:-.055em;line-height:1;padding:18px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);word-break:break-all;transition:background .3s,color .3s,padding .3s}
+.mail:hover{background:#fff;color:#0A0A0A;padding-left:16px;padding-right:16px}
+.mail span{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:400;flex-shrink:0}
+.link-row{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:clamp(22px,3.4vw,44px);letter-spacing:-.05em;text-transform:uppercase;transition:padding .3s,background .3s,color .3s}
+.link-row:hover{background:#fff;color:#0A0A0A;padding-left:16px;padding-right:16px}
+.also{display:flex;flex-wrap:wrap;gap:10px 22px;padding-top:22px;align-items:center}
+.also a{border-bottom:1px solid var(--ink);padding-bottom:1px}
+.also a:hover{opacity:.55}
+footer{padding:20px 0 26px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a:hover{text-decoration:underline}
+.toast{position:fixed;bottom:24px;right:24px;background:#fff;color:#0A0A0A;border:1px solid #0A0A0A;padding:12px 20px;z-index:2800;transform:translateY(90px);opacity:0;transition:all .35s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.toast.show{transform:none;opacity:1}
+
+/* =====================================================================
+   8. PROJECT POP-UP (centered, page behind goes blurry; click outside to close)
+   ===================================================================== */
+.lightbox{position:fixed;inset:0;z-index:2900;display:flex;align-items:center;justify-content:center;padding:4vh 4vw;background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.lightbox.open{opacity:1;visibility:visible;transition:opacity .35s}
+.lb-card{position:relative;display:grid;grid-template-columns:1.15fr 1fr;width:min(1060px,92vw);max-height:86vh;background:#fff;color:#0A0A0A;border:1px solid #0A0A0A;box-shadow:0 40px 100px -30px rgba(0,0,0,.45);overflow:hidden;transform:translateY(24px) scale(.97);transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.lightbox.open .lb-card{transform:none}
+/* the text and picture fade in only AFTER the pop-up has fully opened, so nothing behind it competes with the text */
+.lb-media,.lb-info,.lb-x{opacity:0;transition:opacity .35s ease}
+.lightbox.open .lb-media,.lightbox.open .lb-info,.lightbox.open .lb-x{opacity:1;transition-delay:.3s}
+.lb-media{background:#F3F1EC;display:flex;align-items:center;justify-content:center;min-height:260px;max-height:86vh}
+.lb-media img{width:100%;height:100%;max-height:86vh;object-fit:contain}
+.lb-ph{width:100%;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:20px;background:#EDEDED}
+.lb-info{padding:clamp(20px,3vw,36px);overflow:auto;max-height:86vh;display:flex;flex-direction:column;gap:12px}
+.lb-kicker{color:var(--muted)}
+.lb-title{font-weight:700;font-size:clamp(26px,3vw,42px);line-height:.92;letter-spacing:-.05em;text-transform:uppercase}
+.lb-body h4{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:500;color:var(--ink);margin:16px 0 4px}
+.lb-body p,.lb-body li{font-size:15.5px;line-height:1.65;color:#1c1c1c}
+.lb-body ul{padding-left:18px}
+.lb-body p+p{margin-top:8px}
+.lb-nav{display:flex;gap:14px;align-items:center;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.lb-nav button:hover{text-decoration:underline}
+.lb-x{position:absolute;top:10px;right:10px;z-index:3;background:#fff;border:1px solid #0A0A0A;width:34px;height:34px;font-size:14px}
+.lb-x:hover{background:#EDEDED}
+
+/* =====================================================================
+   8b. TYPOGRAPHY + UX DETAILS
+   ===================================================================== */
+body{font-kerning:normal;text-rendering:optimizeLegibility;font-feature-settings:"kern","liga"}
+h1,h2,h3,h4,.stand,.pull,.hero-line{text-wrap:balance}      /* titles break into even lines */
+.copy p,.hero-text,.seg p{text-wrap:pretty}                  /* body text avoids lonely last words */
+.mono{font-variant-numeric:tabular-nums}
+.skip{position:fixed;left:12px;top:-60px;z-index:4000;background:#0A0A0A;color:#fff;padding:10px 14px;font-family:var(--f-mono);font-size:12px;transition:top .2s}
+.skip:focus{top:12px}
+.sr{position:absolute;left:-9999px}
+.lb-bigtype{width:100%;height:100%;min-height:300px;display:flex;flex-direction:column;justify-content:space-between;padding:26px;background:#fff;border-right:1px solid var(--line)}
+.lb-bigtype b{font-family:var(--f-serif);font-weight:500;font-size:clamp(120px,18vw,240px);line-height:.8;letter-spacing:-.05em;color:var(--blue)}
+
+/* =====================================================================
+   9. MOBILE
+   ===================================================================== */
+@media(max-width:900px){
+  .nav .wrap{grid-template-columns:auto 1fr}
+  .nav-links{display:none}
+  .nav-logo{text-align:left}
+  .toc-vert{display:none}
+  .hero-meta span:nth-child(2){display:none}
+  .hero-main{grid-template-columns:1fr;grid-template-areas:"name" "text" "pol"}
+  .hero-polaroid{width:62vw;margin:10px 0 0 auto}
+  .profile-grid{grid-template-columns:1fr}
+  .vert{writing-mode:horizontal-tb;transform:none}
+  .pf-cols{grid-template-columns:1fr}
+  .rail{grid-template-columns:1fr}
+  .rail-side{position:static}
+  .case,.ux-case,.ux-pair,.mini3,.contact-lead{grid-template-columns:1fr}
+  .copy.cols{columns:1}
+  .seg-grid{grid-template-columns:1fr 1fr}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .w3,.w4{grid-column:span 2}
+  .piece{grid-template-columns:34px 1fr}
+  .piece .t,.piece .r{display:none}
+  .lb-card{grid-template-columns:1fr;overflow:auto}
+  .lb-media{max-height:42vh}
+  .lb-info{max-height:none;overflow:visible}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal,.shot,.b,.ux-card,.shot .ph,.b .ph,.ux-card .ph,.w>span,.hn-in,.hero-meta,.hero-line,.hero-text,.hero-foot,.hero-polaroid,.hero .wrap{opacity:1!important;transform:none!important;clip-path:none!important}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to work</a>
+<div class="progress" id="progress"></div>
+
+<!-- =====================================================================
+     INTRO (short, color screen with your name). ✏️ name below. Length: SCRIPT section 0.
+     Plays only the first time in a session so recruiters are never slowed down.
+     ===================================================================== -->
+<div id="intro" aria-hidden="true">
+  <div class="in-name"><span>Lina Orundas</span></div>
+  <div class="in-bar"><i id="inBar"></i></div>
+  <div class="in-meta mono"><span>[ Portfolio ]</span><span id="inCount">00</span></div>
+</div>
+
+<!-- =====================================================================
+     TOP BAR — left links · center title · right stamps + contact
+     ✏️ Center text: change "Lina Orundas" and "Portfolio". Links: keep href="#..." the same.
+     ===================================================================== -->
+<div class="topfade"></div>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <nav class="nav-links mono" aria-label="Main">
+      <a href="#work">[ Work ]</a>
+      <a href="#toc">[ Contents ]</a>
+      <a href="#ux">[ UX / UI ]</a>
+    </nav>
+    <a class="nav-logo" href="#home" aria-label="Back to top">Lina Orundas — <em>Portfolio</em></a>
+    <div class="nav-right mono"><a href="#contact">[ Contact ]</a></div>
+  </div>
+</header>
+
+<main>
+
+<!-- =====================================================================
+     COVER
+     ✏️ Name: the words inside the two .hn-in spans.  ✏️ Cursive title: .hero-sub
+     ✏️ YOUR WORDS (next to the polaroid): .hero-line = big italic sentence, .hero-text = paragraph
+     ✏️ Bottom row: .hero-foot
+     ✏️ Polaroid picture: save your favorite photo as images/me.jpg (bigger now, in color)
+     ===================================================================== -->
+<section class="hero" id="home">
+
+  <div class="wrap">
+    <div class="hero-meta mono"><span>[ Lina Orundas ]</span><span>[ Designer &amp; Creative ]</span><span>[ Sweden — CET ]</span></div>
+
+    <div class="hero-main">
+      <div class="hero-title">
+        <h1 class="hero-name" aria-label="Lina Orundas">
+          <span class="hn-line"><span class="hn-in">Lina</span></span>
+          <span class="hn-line"><span class="hn-in">Orundas</span></span>
+        </h1>
+        <p class="hero-sub"><span class="hn-in">creative portfolio</span></p>
+      </div>
+
+      <div class="hero-express">
+        <p class="hero-line">Brands, interfaces <span class="amp">&amp;</span> stories across print, screen and social.</p>
+        <p class="hero-text">New Media Design student and multidisciplinary creative, originally from Istanbul and based in Sweden. I design, write, photograph, style, draw and paint, and I mix Scandinavian editorial minimalism with bold typography and human-centered thinking.</p>
+      </div>
+
+      <figure class="hero-polaroid">
+        <div class="ph" data-ph="images/me.jpg — your favorite photo"><img src="images/me.jpg" alt="Portrait of Lina Orundas" onerror="this.remove()"></div>
+        <figcaption class="mono"><span>Lina ✦ 2026</span><span>[ Istanbul → Sweden ]</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="hero-foot mono"><span>[ Istanbul → Sweden ]</span><span>[ Design · Marketing · SEO · UX/UI ]</span><span>[ Photo · Illustration · Writing ]</span><span>Scroll →</span></div>
+  </div>
+</section>
+
+<!-- SCROLLING WORDS — ✏️ the list is written twice so the loop never breaks: edit BOTH halves the same way -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Graphic Design ✴︎</span><span>Illustration ✴︎</span><span>Rebranding ✴︎</span><span>Social Media ✴︎</span><span>Photography ✴︎</span><span>UX / UI ✴︎</span><span>Editorial Writing ✴︎</span><span>Marketing ✴︎</span><span>SEO ✴︎</span><span>Web Design ✴︎</span><span>App Design ✴︎</span><span>Visual Design ✴︎</span><span>Typography ✴︎</span>
+    <span>Graphic Design ✴︎</span><span>Illustration ✴︎</span><span>Rebranding ✴︎</span><span>Social Media ✴︎</span><span>Photography ✴︎</span><span>UX / UI ✴︎</span><span>Editorial Writing ✴︎</span><span>Marketing ✴︎</span><span>SEO ✴︎</span><span>Web Design ✴︎</span><span>App Design ✴︎</span><span>Visual Design ✴︎</span><span>Typography ✴︎</span>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PROFILE — the resume-style typography
+     HOW IT WORKS: each list line has  style="--s:N"  = how many steps it is pushed to the right.
+     Change the numbers to change the rhythm (0 = not pushed). Same for the About paragraphs.
+     ✏️ Colored dots: change --c / left / top. Delete a <span class="dot"> to remove it.
+     ===================================================================== -->
+<section class="sec profile" id="profile">
+  <span class="dot" style="--c:#0A0A0A;--d:14px;left:3%;top:34%"></span>
+  <span class="dot" style="--c:#0A0A0A;--d:22px;left:58%;top:46%"></span>
+  <span class="dot" style="--c:#0A0A0A;--d:30px;left:46%;top:84%"></span>
+  <span class="dot" style="--c:#0A0A0A;--d:18px;right:5%;top:18%"></span>
+  <span class="dot" style="--c:#0A0A0A;--d:12px;right:12%;top:72%"></span>
+
+  <div class="wrap">
+    <div class="sec-top mono reveal"><span>[ 01 ] Profile</span><span>Issue 2026</span></div>
+
+    <div class="profile-grid">
+      <span class="vert reveal">( 2026 )</span>
+
+      <div class="pf-col">
+        <div class="pf-about">
+          <h2 class="paren xl reveal">( About me )</h2>
+          <div class="copy reveal">
+            <!-- ✏️ your story in 3 short paragraphs -->
+            <p class="stand" style="--s:0">I work where design meets story.</p>
+            <p style="--s:2">Rebrands, social campaigns, interfaces and written pieces all start the same way for me: a clear idea, then the typography to carry it. I'm a New Media Design student, originally from Istanbul and now based in Sweden, and that mix shows up in my work as bold type held inside calm, careful layouts.</p>
+            <p style="--s:5">Away from the screen I draw, paint, photograph and style, and I DJ. Those habits feed everything I design.</p>
+          </div>
+          <a class="pf-tag reveal" href="#work">[ <b>portfolio</b> ]</a>
+        </div>
+
+        <div class="pf-block reveal">
+          <h3 class="paren">( Skills )</h3>
+          <ul class="stagger">
+            <li style="--s:0">Graphic design</li>
+            <li style="--s:3">Rebranding &amp; identity</li>
+            <li style="--s:1">Social media content &amp; management</li>
+            <li style="--s:5">SEO &amp; digital marketing optimization</li>
+            <li style="--s:2">UX / UI design</li>
+            <li style="--s:6">Photography &amp; styling</li>
+            <li style="--s:3">Illustration, drawing &amp; painting</li>
+            <li style="--s:0">Editorial writing</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pf-col">
+        <div class="pf-block reveal">
+          <h3 class="paren">( Softwares )</h3>
+          <ul class="stagger">
+            <li style="--s:3">Figma</li>
+            <li style="--s:0">Adobe Illustrator</li>
+            <li style="--s:4">Adobe Photoshop</li>
+            <li style="--s:1">InDesign</li>
+            <li style="--s:5">Premiere Pro</li>
+            <li style="--s:2">CapCut</li>
+          </ul>
+        </div>
+        <div class="pf-block reveal">
+          <h3 class="paren">( Interests )</h3>
+          <ul class="stagger">
+            <li style="--s:0">Photography</li>
+            <li style="--s:4">Styling &amp; fashion</li>
+            <li style="--s:1">Art</li>
+            <li style="--s:6">Music &amp; DJing</li>
+          </ul>
+        </div>
+        <div class="pf-block reveal">
+          <h3 class="paren">( Languages )</h3>
+          <ul class="stagger">
+            <li style="--s:3">English: near-native</li>
+            <li style="--s:0">Swedish: understand most, speak some</li>
+            <li style="--s:5">✏️ add yours: edit me</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     TABLE OF CONTENTS — poster style
+     WHAT IT DOES: the giant word is decoration. The 6 cards slide endlessly (hover = pause).
+     Click a card = a pop-up opens with a short overview of that chapter + a "Go to chapter" button.
+     ✏️ EDIT each card:
+        data-title / data-kicker / data-big = pop-up title, small label, big number
+        data-go="#w-graphic"                = the section the button jumps to (must match a section id, do not change)
+        the <h4> and <p> on the card         = what shows on the card itself
+        <div class="info" hidden> ... </div> = the text inside the pop-up (write your own!)
+     ✏️ The big line at the top (.toc-top) and the giant word (.toc-giant) can be changed too.
+     ===================================================================== -->
+<section class="sec toc" id="toc">
+  <div class="wrap">
+    <div class="sec-top mono reveal"><span>[ 02 ] Table of contents</span><span>Tap a chapter</span></div>
+    <h2 class="sr">Table of contents</h2>
+    <p class="toc-top reveal">→ 2026 ● Design, write, draw, shoot <span class="amp">&amp;</span> style</p>
+  </div>
+
+  <div class="toc-stage">
+    <div class="toc-giant" aria-hidden="true">Contents</div>
+    <span class="toc-vert mono">( 2026 ) →</span>
+
+    <div class="loop" id="loop">
+      <div class="loop-track" id="loopTrack" data-group>
+
+        <article class="toc-card" tabindex="0" role="button" data-lightbox data-big="01" data-kicker="Chapter 01" data-title="Graphic design &amp; illustration" data-go="#w-graphic">
+          <span class="mono">01</span><h4>Graphic design &amp; illustration</h4><p>Posters, print, layouts. Plus drawing, painting and digital illustration.</p><span class="mono">Peek inside +</span>
+          <div class="info" hidden>
+            <p>✏️ Posters, print catalogs and publication layouts, built on precise typography. Away from the screen I draw and paint, and that hand-made energy ends up in my digital illustration too.</p>
+            <h4>Inside</h4><ul><li>Print &amp; poster projects</li><li>Digital illustration</li><li>Drawing &amp; painting</li></ul>
+          </div>
+        </article>
+
+        <article class="toc-card" tabindex="0" role="button" data-lightbox data-big="02" data-kicker="Chapter 02" data-title="Branding &amp; marketing" data-go="#w-branding">
+          <span class="mono">02</span><h4>Branding &amp; marketing</h4><p>A group case study, brand projects, SEO and digital marketing.</p><span class="mono">Peek inside +</span>
+          <div class="info" hidden>
+            <p>✏️ Identities that carry across packaging, merchandise and digital, plus the marketing that puts them to work.</p>
+            <h4>Inside</h4><ul><li>Case study: sustainable coffee shop (group project)</li><li>Three brand projects</li><li>SEO, digital marketing optimization, content &amp; campaigns</li></ul>
+          </div>
+        </article>
+
+        <article class="toc-card" tabindex="0" role="button" data-lightbox data-big="03" data-kicker="Chapter 03" data-title="Social media &amp; photography" data-go="#w-social">
+          <span class="mono">03</span><h4>Social media &amp; photography</h4><p>Content that moves, plus photography, styling, fashion, art and music.</p><span class="mono">Peek inside +</span>
+          <div class="info" hidden>
+            <p>✏️ Campaigns and short-form video shaped for each platform, and the things that train my eye.</p>
+            <h4>Inside</h4><ul><li>Social media projects</li><li>Photography, styling &amp; fashion</li><li>Art, music &amp; DJing</li></ul>
+          </div>
+        </article>
+
+        <article class="toc-card" tabindex="0" role="button" data-lightbox data-big="04" data-kicker="Chapter 04" data-title="Editorial writing" data-go="#w-editorial">
+          <span class="mono">04</span><h4>Editorial writing</h4><p>Portal Press: mood essays, styling journals and stories.</p><span class="mono">Peek inside +</span>
+          <div class="info" hidden>
+            <p>✏️ Mood essays, aesthetic stories and styling journals, written with magazine pacing.</p>
+            <h4>Inside</h4><ul><li>An article in two columns</li><li>Selected pieces</li><li>Spreads &amp; layouts</li></ul>
+          </div>
+        </article>
+
+        <article class="toc-card" tabindex="0" role="button" data-lightbox data-big="05" data-kicker="Chapter 05" data-title="UX / UI" data-go="#ux">
+          <span class="mono">05</span><h4>UX / UI</h4><p>One case study and two projects, all on Behance.</p><span class="mono">Peek inside +</span>
+          <div class="info" hidden>
+            <p>✏️ User-first interfaces: clear navigation, accessibility and prototypes tested with real people.</p>
+            <h4>Inside</h4><ul><li>UX case study</li><li>Two UI projects</li><li>Link to everything on Behance</li></ul>
+          </div>
+        </article>
+
+        <article class="toc-card" tabindex="0" role="button" data-lightbox data-big="06" data-kicker="Chapter 06" data-title="Say hello" data-go="#contact">
+          <span class="mono">06</span><h4>Say hello</h4><p>Open to part-time, full-time, freelance and creative projects.</p><span class="mono">Peek inside +</span>
+          <div class="info" hidden>
+            <p>✏️ Based in Sweden (CET) and available remotely worldwide. I usually reply within 24–48 hours.</p>
+            <h4>Inside</h4><ul><li>Email</li><li>LinkedIn</li><li>Behance &amp; Portal Press</li></ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="toc-foot mono"><span>● ●</span><span class="flip">Portfolio — Lina Orundas — Sweden</span><span>↓ Scroll</span></div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     WORK
+     Every section below uses the same two-part layout:
+       LEFT  (.rail-side) = title in color, a short editorial intro, "what I do" list, tools
+       RIGHT (.rail-main) = the pictures
+     ✏️ HOW TO EDIT A PICTURE:  <figure class="shot" data-lightbox data-title="..." data-note="..." >
+          data-title = title in the pop-up       data-note = short text in the pop-up
+          <img src="images/....jpg">             = the picture file
+          want a LONGER pop-up text? put <div class="info" hidden> ... </div> inside the figure (see the
+          branding projects for the example). When there is an .info block it replaces data-note.
+     ✏️ ADD a picture: copy a whole <figure> block.   REMOVE: delete it.
+     ===================================================================== -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-top mono reveal"><span>[ 03 ] Selected work</span><span>Volume 2026</span></div>
+    <h2 class="big work-title" data-split>Selected work</h2>
+
+    <!-- ============ 1 · GRAPHIC DESIGN & ILLUSTRATION ============ -->
+    <article class="seg rail" id="w-graphic" style="--c:#0A0A0A">
+      <aside class="rail-side">
+        <span class="chip mono reveal">[ 1 ] Graphic design</span>
+        <h3 class="reveal">Graphic design <span class="amp">&amp;</span> illustration</h3>
+        <!-- ✏️ intro line + paragraph -->
+        <p class="stand reveal">Type first. Everything else follows.</p>
+        <div class="copy reveal">
+          <p>Posters, print catalogs and publication layouts built on precise typography and tactile grids. Away from the computer I draw and paint, and I bring that hand-made energy into digital illustration.</p>
+        </div>
+        <p class="paren reveal">( What I do )</p>
+        <ul class="stagger reveal">
+          <li style="--s:0">Posters &amp; print</li>
+          <li style="--s:3">Publication &amp; catalog layout</li>
+          <li style="--s:1">Typography</li>
+          <li style="--s:4">Digital illustration</li>
+          <li style="--s:2">Drawing &amp; painting</li>
+        </ul>
+        <p class="mono tools reveal">[ Illustrator · Photoshop · InDesign ]</p>
+      </aside>
+
+      <div class="rail-main">
+        <div class="sub"><h4 class="paren">( Graphic design )</h4><span class="mono">Print · posters</span></div>
+        <div class="seg-grid" data-group>
+          <figure class="shot" style="--k:0" data-lightbox data-title="Project name" data-note="Short description. Edit me." data-ph="images/design-1.jpg">
+            <div class="ph" data-ph="images/design-1.jpg"><img src="images/design-1.jpg" alt="Graphic design project 1" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 01 ] Project name</span><span>2026</span></figcaption>
+          </figure>
+          <figure class="shot" style="--k:1" data-lightbox data-title="Project name" data-note="Short description. Edit me." data-ph="images/design-2.jpg">
+            <div class="ph" data-ph="images/design-2.jpg"><img src="images/design-2.jpg" alt="Graphic design project 2" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 02 ] Project name</span><span>2026</span></figcaption>
+          </figure>
+          <figure class="shot" style="--k:2" data-lightbox data-title="Project name" data-note="Short description. Edit me." data-ph="images/design-3.jpg">
+            <div class="ph" data-ph="images/design-3.jpg"><img src="images/design-3.jpg" alt="Graphic design project 3" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 03 ] Project name</span><span>2026</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- ✏️ ILLUSTRATION. Sizes: w3 = wide half, h2 = double height. Keep the pattern so the edges stay aligned. -->
+        <div class="sub"><h4 class="paren">( Digital illustration )</h4><span class="mono">Screen · drawn by hand</span></div>
+        <div class="bento" data-group>
+          <figure class="b w3 h2" data-lightbox data-title="Illustration title" data-note="Short description. Edit me." data-ph="images/illus-1.jpg">
+            <div class="ph" data-ph="images/illus-1.jpg"><img src="images/illus-1.jpg" alt="Illustration 1" onerror="this.remove()"></div><figcaption class="mono">Illustration</figcaption>
+          </figure>
+          <figure class="b w3" data-lightbox data-title="Illustration title" data-note="Short description. Edit me." data-ph="images/illus-2.jpg">
+            <div class="ph" data-ph="images/illus-2.jpg"><img src="images/illus-2.jpg" alt="Illustration 2" onerror="this.remove()"></div><figcaption class="mono">Illustration</figcaption>
+          </figure>
+          <figure class="b w3" data-lightbox data-title="Illustration title" data-note="Short description. Edit me." data-ph="images/illus-3.jpg">
+            <div class="ph" data-ph="images/illus-3.jpg"><img src="images/illus-3.jpg" alt="Illustration 3" onerror="this.remove()"></div><figcaption class="mono">Illustration</figcaption>
+          </figure>
+        </div>
+
+        <!-- ✏️ DRAWING & PAINTING -->
+        <div class="sub"><h4 class="paren">( Drawing &amp; painting )</h4><span class="mono">Paper · canvas</span></div>
+        <div class="bento" data-group>
+          <figure class="b w2 h2" data-lightbox data-title="Drawing title" data-note="Short description. Edit me." data-ph="images/draw-1.jpg">
+            <div class="ph" data-ph="images/draw-1.jpg"><img src="images/draw-1.jpg" alt="Drawing 1" onerror="this.remove()"></div><figcaption class="mono">Drawing</figcaption>
+          </figure>
+          <figure class="b w4" data-lightbox data-title="Painting title" data-note="Short description. Edit me." data-ph="images/draw-2.jpg">
+            <div class="ph" data-ph="images/draw-2.jpg"><img src="images/draw-2.jpg" alt="Painting 1" onerror="this.remove()"></div><figcaption class="mono">Painting</figcaption>
+          </figure>
+          <figure class="b w2" data-lightbox data-title="Drawing title" data-note="Short description. Edit me." data-ph="images/draw-3.jpg">
+            <div class="ph" data-ph="images/draw-3.jpg"><img src="images/draw-3.jpg" alt="Drawing 2" onerror="this.remove()"></div><figcaption class="mono">Drawing</figcaption>
+          </figure>
+          <figure class="b w2" data-lightbox data-title="Painting title" data-note="Short description. Edit me." data-ph="images/draw-4.jpg">
+            <div class="ph" data-ph="images/draw-4.jpg"><img src="images/draw-4.jpg" alt="Painting 2" onerror="this.remove()"></div><figcaption class="mono">Painting</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 2 · BRANDING & MARKETING ============ -->
+    <article class="seg rail" id="w-branding" style="--c:#0A0A0A">
+      <aside class="rail-side">
+        <span class="chip mono reveal">[ 2 ] Branding &amp; marketing</span>
+        <h3 class="reveal">Branding <span class="amp">&amp;</span> marketing</h3>
+        <p class="stand reveal">Identity that works as hard as it looks.</p>
+        <div class="copy reveal">
+          <p>Visual identities, logotypes and color systems that carry across packaging, merchandise and digital, and the marketing that puts them to work: SEO, digital marketing optimization, campaigns and content.</p>
+        </div>
+        <p class="paren reveal">( What I do )</p>
+        <ul class="stagger reveal">
+          <li style="--s:0">Brand identity &amp; logo</li>
+          <li style="--s:3">Color &amp; typography systems</li>
+          <li style="--s:1">Social media strategy</li>
+          <li style="--s:5">SEO: on-page &amp; off-page</li>
+          <li style="--s:2">Digital marketing optimization</li>
+          <li style="--s:4">Campaign &amp; content planning</li>
+        </ul>
+        <p class="mono tools reveal">[ Illustrator · Photoshop · Figma · SEO tools ]</p>
+      </aside>
+
+      <div class="rail-main" data-group>
+        <!-- ✏️ CASE STUDY (the first branding item). Click it = the pop-up with the full story.
+             Write your text inside <div class="info" hidden> ... </div> below. Use <h4> for little titles, <p> for text.
+             The Behance link: data-link="..." (the button in the pop-up) + the "See more on Behance" button here. -->
+        <figure class="case reveal" data-lightbox data-title="Coffee shop branding" data-kicker="Case study · Group project"
+                data-link="https://www.behance.net/linaorundas" data-linktext="See more on Behance ↗" data-ph="images/brand-case.jpg">
+          <div class="ph" data-ph="images/brand-case.jpg"><img src="images/brand-case.jpg" alt="Coffee shop branding case study" onerror="this.remove()"></div>
+          <div class="case-body">
+            <span class="mono">[ Case study ] · Group project</span>
+            <h4>Sustainable coffee shop, full brand identity</h4>
+            <p>A complete identity for a sustainable coffee shop: logo, color palette, typography, social media and more. A group project: we built the whole system together, and my main focus was the social media.</p>
+            <div class="facts mono"><span>Logo</span><span>Color palette</span><span>Typography</span><span>Social media</span><span>Sustainability</span></div>
+            <div class="case-links">
+              <span class="btn ghost">Read the case study</span>
+              <!-- ✏️ BEHANCE LINK #1 (change the address) -->
+              <a class="btn" href="https://www.behance.net/linaorundas" target="_blank" rel="noopener">See more on Behance ↗</a>
+            </div>
+          </div>
+          <div class="info" hidden>
+            <h4>Overview</h4>
+            <p>✏️ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Describe the coffee shop and what the brief was.</p>
+            <h4>The team</h4>
+            <p>✏️ Lorem ipsum: a group project. List who worked on it and how you shared the work.</p>
+            <h4>My role: social media</h4>
+            <p>✏️ Lorem ipsum: what you made for social media (content system, posts, stories, tone of voice) and how it connects to the identity.</p>
+            <h4>The identity</h4>
+            <ul><li>✏️ Logo: lorem ipsum</li><li>✏️ Color palette: lorem ipsum</li><li>✏️ Typography: lorem ipsum</li><li>✏️ Sustainability thinking: lorem ipsum</li></ul>
+            <h4>Outcome</h4>
+            <p>✏️ Lorem ipsum: what the final result was and what you learned.</p>
+          </div>
+        </figure>
+
+        <!-- ✏️ BRANDING PROJECTS (poster + pop-up info). Write each project's text in its .info block. -->
+        <div class="sub"><h4 class="paren">( Projects )</h4><span class="mono">Posters · identities</span></div>
+        <div class="seg-grid">
+          <figure class="shot" style="--k:0" data-lightbox data-title="Project name" data-kicker="Branding project" data-ph="images/brand-1.jpg">
+            <div class="ph" data-ph="images/brand-1.jpg"><img src="images/brand-1.jpg" alt="Branding project 1" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 01 ] Project name</span><span>2026</span></figcaption>
+            <div class="info" hidden>
+              <h4>What it is</h4><p>✏️ Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h4>What I did</h4><p>✏️ Lorem ipsum: your role, tools, and the idea.</p>
+            </div>
+          </figure>
+          <figure class="shot" style="--k:1" data-lightbox data-title="Project name" data-kicker="Branding project" data-ph="images/brand-2.jpg">
+            <div class="ph" data-ph="images/brand-2.jpg"><img src="images/brand-2.jpg" alt="Branding project 2" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 02 ] Project name</span><span>2026</span></figcaption>
+            <div class="info" hidden>
+              <h4>What it is</h4><p>✏️ Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h4>What I did</h4><p>✏️ Lorem ipsum: your role, tools, and the idea.</p>
+            </div>
+          </figure>
+          <figure class="shot" style="--k:2" data-lightbox data-title="Project name" data-kicker="Branding project" data-ph="images/brand-3.jpg">
+            <div class="ph" data-ph="images/brand-3.jpg"><img src="images/brand-3.jpg" alt="Branding project 3" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 03 ] Project name</span><span>2026</span></figcaption>
+            <div class="info" hidden>
+              <h4>What it is</h4><p>✏️ Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h4>What I did</h4><p>✏️ Lorem ipsum: your role, tools, and the idea.</p>
+            </div>
+          </figure>
+        </div>
+
+        <!-- ✏️ MARKETING & SEO: three short text cards (no pictures needed) -->
+        <div class="sub"><h4 class="paren">( Marketing &amp; SEO )</h4><span class="mono">Getting found</span></div>
+        <div class="mini3">
+          <div class="mini reveal" style="--c:#0A0A0A"><h4>SEO</h4><p>On-page structure and copy, keyword research, backlinks and off-page audits that help a website get found.</p></div>
+          <div class="mini reveal" style="--c:#0A0A0A;--k:1"><h4>Digital marketing optimization</h4><p>Looking at what the numbers say and improving content, pages and campaigns step by step.</p></div>
+          <div class="mini reveal" style="--c:#0A0A0A;--k:2"><h4>Content &amp; campaigns</h4><p>Planning, writing and designing content calendars and campaigns that stay true to the brand voice.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 3 · SOCIAL MEDIA & PHOTOGRAPHY ============ -->
+    <article class="seg rail" id="w-social" style="--c:#0A0A0A">
+      <aside class="rail-side">
+        <span class="chip mono reveal">[ 3 ] Social &amp; photography</span>
+        <h3 class="reveal">Social media <span class="amp">&amp;</span> photography</h3>
+        <p class="stand reveal">Content with a point of view.</p>
+        <div class="copy reveal">
+          <p>Campaigns, short-form video and content systems shaped for each platform. Alongside it, the things that shape my eye: photography, styling, fashion, art and music.</p>
+        </div>
+        <p class="paren reveal">( What I do )</p>
+        <ul class="stagger reveal">
+          <li style="--s:0">Content systems</li>
+          <li style="--s:3">Reels, Stories &amp; short video</li>
+          <li style="--s:1">Photography</li>
+          <li style="--s:4">Styling &amp; art direction</li>
+          <li style="--s:2">DJing &amp; music curation</li>
+        </ul>
+        <p class="mono tools reveal">[ Premiere Pro · CapCut · Photoshop ]</p>
+      </aside>
+
+      <div class="rail-main">
+        <div class="sub"><h4 class="paren">( Social media )</h4><span class="mono">Posts · reels</span></div>
+        <div class="seg-grid" data-group>
+          <figure class="shot" style="--k:0" data-lightbox data-title="Project name" data-note="Short description. Edit me." data-ph="images/social-1.jpg">
+            <div class="ph" data-ph="images/social-1.jpg"><img src="images/social-1.jpg" alt="Social media project 1" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 01 ] Project name</span><span>2026</span></figcaption>
+          </figure>
+          <figure class="shot" style="--k:1" data-lightbox data-title="Project name" data-note="Short description. Edit me." data-ph="images/social-2.jpg">
+            <div class="ph" data-ph="images/social-2.jpg"><img src="images/social-2.jpg" alt="Social media project 2" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 02 ] Project name</span><span>2026</span></figcaption>
+          </figure>
+          <figure class="shot" style="--k:2" data-lightbox data-title="Project name" data-note="Short description. Edit me." data-ph="images/social-3.jpg">
+            <div class="ph" data-ph="images/social-3.jpg"><img src="images/social-3.jpg" alt="Social media project 3" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 03 ] Project name</span><span>2026</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- ✏️ PHOTOGRAPHY, STYLING, FASHION, ART & MUSIC.
+             Irregular sizes that still line up: w2 / w3 / w4 = how wide (out of 6), h2 = double height.
+             The pattern below fills a perfect rectangle. To ADD more: copy a block and keep the sizes in
+             groups that add up to 6 columns per row (e.g. w3+w3, w2+w2+w2, w2+w4). -->
+        <div class="sub"><h4 class="paren">( Photography, styling &amp; music )</h4><span class="mono">My eye</span></div>
+        <div class="bento" data-group>
+          <figure class="b w3 h2" data-lightbox data-title="Photography" data-note="Short description. Edit me." data-ph="images/photo-1.jpg">
+            <div class="ph" data-ph="images/photo-1.jpg"><img src="images/photo-1.jpg" alt="Photography 1" onerror="this.remove()"></div><figcaption class="mono">Photography</figcaption>
+          </figure>
+          <figure class="b w3" data-lightbox data-title="Styling" data-note="Short description. Edit me." data-ph="images/photo-2.jpg">
+            <div class="ph" data-ph="images/photo-2.jpg"><img src="images/photo-2.jpg" alt="Styling" onerror="this.remove()"></div><figcaption class="mono">Styling</figcaption>
+          </figure>
+          <figure class="b w3" data-lightbox data-title="Fashion" data-note="Short description. Edit me." data-ph="images/photo-3.jpg">
+            <div class="ph" data-ph="images/photo-3.jpg"><img src="images/photo-3.jpg" alt="Fashion" onerror="this.remove()"></div><figcaption class="mono">Fashion</figcaption>
+          </figure>
+          <figure class="b w2 h2" data-lightbox data-title="Art" data-note="Short description. Edit me." data-ph="images/photo-4.jpg">
+            <div class="ph" data-ph="images/photo-4.jpg"><img src="images/photo-4.jpg" alt="Art" onerror="this.remove()"></div><figcaption class="mono">Art</figcaption>
+          </figure>
+          <!-- DJ block: small picture + text. ✏️ change the words / picture photo-5.jpg -->
+          <figure class="b b-text w4" data-lightbox data-title="Music &amp; DJing" data-note="Short description. Edit me." data-ph="images/photo-5.jpg">
+            <div class="ph" data-ph="images/photo-5.jpg"><img src="images/photo-5.jpg" alt="DJing" onerror="this.remove()"></div>
+            <div class="bt"><span class="mono">[ Music ]</span><h4>DJ sets &amp; sound</h4><p>✏️ A line about your sets, the genres you play, where you have played. Edit me.</p></div>
+          </figure>
+          <figure class="b w2" data-lightbox data-title="Photography" data-note="Short description. Edit me." data-ph="images/photo-6.jpg">
+            <div class="ph" data-ph="images/photo-6.jpg"><img src="images/photo-6.jpg" alt="Photography 2" onerror="this.remove()"></div><figcaption class="mono">Photography</figcaption>
+          </figure>
+          <figure class="b w2" data-lightbox data-title="Fashion" data-note="Short description. Edit me." data-ph="images/photo-7.jpg">
+            <div class="ph" data-ph="images/photo-7.jpg"><img src="images/photo-7.jpg" alt="Fashion 2" onerror="this.remove()"></div><figcaption class="mono">Fashion</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 4 · EDITORIAL WRITING ============ -->
+    <article class="seg rail" id="w-editorial" style="--c:#0A0A0A">
+      <aside class="rail-side">
+        <span class="chip mono reveal">[ 4 ] Editorial writing</span>
+        <h3 class="reveal">Editorial writing</h3>
+        <p class="stand reveal">Words with a point of view.</p>
+        <div class="copy reveal">
+          <p>Portal Press is my editorial blog: mood essays, aesthetic stories and styling journals, written with magazine pacing and a clear voice.</p>
+        </div>
+        <p class="paren reveal">( What I write )</p>
+        <ul class="stagger reveal">
+          <li style="--s:0">Mood essays</li>
+          <li style="--s:3">Styling journals</li>
+          <li style="--s:1">Culture &amp; aesthetics</li>
+          <li style="--s:4">Brand copywriting</li>
+          <li style="--s:2">Captions &amp; social copy</li>
+        </ul>
+        <!-- ✏️ LINK: Portal Press -->
+        <a class="btn" style="margin-top:22px" href="https://instagram.com/luakovsky" target="_blank" rel="noopener">Read Portal Press ↗</a>
+      </aside>
+
+      <div class="rail-main">
+        <!-- ✏️ pull quote: put a line of your own here -->
+        <p class="pull reveal">✏️ “A line from one of your pieces, or what you believe about writing.”</p>
+
+        <!-- ✏️ the article text: 2 columns, first letter big. Replace with your own words. -->
+        <div class="copy cols reveal">
+          <p class="dropcap">Every Portal Press piece begins with a mood: a song, a color, a street at a certain hour. From there I work backward to the sentences that can hold it. I draft quickly, edit slowly, and read every line out loud before it goes anywhere.</p>
+          <p>I treat the layout as part of the writing. Where a line breaks, how a headline sits against an image, how much white space a paragraph is allowed: these are editorial decisions, not decoration, and they are the same decisions I make as a designer.</p>
+          <p>Writing also pays off in the rest of my work. Brand voice, captions, campaign copy and interface text all get better when someone has thought about the rhythm of a sentence. That is the idea behind everything I put here: one voice, across print, screen and social.</p>
+        </div>
+
+        <div class="sub"><h4 class="paren">( Topics )</h4><span class="mono">What I write about</span></div>
+        <div class="topics mono"><span>Aesthetics</span><span>Style</span><span>Music</span><span>Everyday rituals</span><span>Art</span><span>Fashion</span></div>
+
+        <!-- ✏️ SELECTED PIECES: each row = one piece. Change the title, type, year. Link goes to Portal Press. -->
+        <div class="sub"><h4 class="paren">( Selected pieces )</h4><span class="mono">Read ↗</span></div>
+        <div class="pieces">
+          <a class="piece" href="https://instagram.com/luakovsky" target="_blank" rel="noopener"><span class="mono">01</span><h4>Piece title one</h4><span class="t mono">Mood essay</span><span class="r mono">2026 ↗</span></a>
+          <a class="piece" href="https://instagram.com/luakovsky" target="_blank" rel="noopener"><span class="mono">02</span><h4>Piece title two</h4><span class="t mono">Styling journal</span><span class="r mono">2026 ↗</span></a>
+          <a class="piece" href="https://instagram.com/luakovsky" target="_blank" rel="noopener"><span class="mono">03</span><h4>Piece title three</h4><span class="t mono">Aesthetic story</span><span class="r mono">2026 ↗</span></a>
+        </div>
+
+        <div class="sub"><h4 class="paren">( Spreads )</h4><span class="mono">Layouts</span></div>
+        <div class="seg-grid" data-group>
+          <figure class="shot" style="--k:0" data-lightbox data-title="Article title" data-note="Short description. Edit me." data-ph="images/editorial-1.jpg">
+            <div class="ph" data-ph="images/editorial-1.jpg"><img src="images/editorial-1.jpg" alt="Editorial piece 1" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 01 ] Article title</span><span>2026</span></figcaption>
+          </figure>
+          <figure class="shot" style="--k:1" data-lightbox data-title="Article title" data-note="Short description. Edit me." data-ph="images/editorial-2.jpg">
+            <div class="ph" data-ph="images/editorial-2.jpg"><img src="images/editorial-2.jpg" alt="Editorial piece 2" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 02 ] Article title</span><span>2026</span></figcaption>
+          </figure>
+          <figure class="shot" style="--k:2" data-lightbox data-title="Article title" data-note="Short description. Edit me." data-ph="images/editorial-3.jpg">
+            <div class="ph" data-ph="images/editorial-3.jpg"><img src="images/editorial-3.jpg" alt="Editorial piece 3" onerror="this.remove()"></div>
+            <figcaption class="mono"><span>[ 03 ] Article title</span><span>2026</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =====================================================================
+     UX / UI — 1 case study + 2 projects. ALL link to Behance.
+     ✏️ Each card is a link: change href="..." (BEHANCE LINK #2, #3, #4) and the cover picture.
+     ===================================================================== -->
+<section class="sec" id="ux">
+  <div class="wrap">
+    <div class="sec-top mono reveal"><span>[ 04 ] UX / UI</span><span>Figma · Research · Prototyping</span></div>
+    <h2 class="big" data-split>UX / UI</h2>
+
+    <article class="seg rail" style="--c:#0A0A0A">
+      <aside class="rail-side">
+        <span class="chip mono reveal">[ 5 ] UX / UI</span>
+        <h3 class="reveal">Interfaces people understand</h3>
+        <p class="stand reveal">Clear first. Clever second.</p>
+        <div class="copy reveal">
+          <p>User-first mobile and web interfaces: clear navigation, accessibility, strong typographic hierarchy and interactive Figma prototypes, tested with real people before they are called finished.</p>
+        </div>
+        <p class="paren reveal">( What I do )</p>
+        <ul class="stagger reveal">
+          <li style="--s:0">User research &amp; personas</li>
+          <li style="--s:3">Wireframes &amp; flows</li>
+          <li style="--s:1">Prototyping in Figma</li>
+          <li style="--s:4">Design systems</li>
+          <li style="--s:2">Usability testing</li>
+          <li style="--s:5">Accessibility</li>
+        </ul>
+        <!-- ✏️ BEHANCE LINK #5 -->
+        <a class="btn" style="margin-top:22px" href="https://www.behance.net/linaorundas" target="_blank" rel="noopener">See all on Behance ↗</a>
+      </aside>
+
+      <div class="rail-main">
+        <!-- CASE STUDY -->
+        <a class="ux-case reveal" href="https://www.behance.net/linaorundas" target="_blank" rel="noopener">
+          <div class="ph" data-ph="images/ux-case.jpg — cover of the case study"><img src="images/ux-case.jpg" alt="UX case study cover" onerror="this.remove()"></div>
+          <div class="case-body">
+            <span class="mono">[ Case study ]</span>
+            <h4>UX case study name</h4>
+            <p>✏️ Three or four lines: the problem, who it was for, how you researched it and what you designed. Edit me.</p>
+            <div class="facts mono"><span style="color:#0A0A0A">Research</span><span style="color:#0A0A0A">Wireframes</span><span style="color:#0A0A0A">Prototype</span><span style="color:#0A0A0A">Testing</span></div>
+            <div class="case-links"><span class="btn">Read on Behance ↗</span></div>
+          </div>
+        </a>
+
+        <!-- 2 PROJECTS -->
+        <div class="ux-pair">
+          <a class="ux-card" style="--c:#0A0A0A" href="https://www.behance.net/linaorundas" target="_blank" rel="noopener">
+            <div class="ph" data-ph="images/ux-2.jpg — cover of project 2"><img src="images/ux-2.jpg" alt="UX project 2 cover" onerror="this.remove()"></div>
+            <div class="ux-meta">
+              <span class="mono">[ Project 02 ]</span>
+              <h4>Project name two</h4>
+              <p>✏️ Two short lines: the problem, who it was for, and what you designed.</p>
+              <span class="mono">Mobile app · Figma</span>
+              <span class="ux-go mono">Open on Behance ↗</span>
+            </div>
+          </a>
+          <a class="ux-card" style="--c:#0A0A0A" href="https://www.behance.net/linaorundas" target="_blank" rel="noopener">
+            <div class="ph" data-ph="images/ux-3.jpg — cover of project 3"><img src="images/ux-3.jpg" alt="UX project 3 cover" onerror="this.remove()"></div>
+            <div class="ux-meta">
+              <span class="mono">[ Project 03 ]</span>
+              <h4>Project name three</h4>
+              <p>✏️ Two short lines: the problem, who it was for, and what you designed.</p>
+              <span class="mono">Web · Prototype</span>
+              <span class="ux-go mono">Open on Behance ↗</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =====================================================================
+     CONTACT  ✏️ Email: text + mailto: here, and MY_EMAIL in SCRIPT section 6
+     ===================================================================== -->
+<section class="sec dark" id="contact">
+  <div class="wrap">
+    <div class="sec-top mono reveal"><span>[ 05 ] Contact</span><span>Sweden — <b id="liveClock">00:00:00 CET</b></span></div>
+    <h2 class="big" data-split>Let's talk</h2>
+
+    <div class="contact-lead">
+      <p class="reveal">Open to part-time, full-time, freelance and creative projects. Based in Sweden (CET), available remotely worldwide.</p>
+      <span class="mono reveal" style="text-align:right">[ Reply within 24–48 hours ]</span>
+    </div>
+
+    <a class="mail reveal" href="mailto:linaorundas70@gmail.com">linaorundas70@gmail.com <span>Write ↗</span></a>
+    <a class="link-row reveal" href="https://www.linkedin.com/in/lina-orundas-022067332/" target="_blank" rel="noopener"><span>LinkedIn</span><span>↗</span></a>
+
+    <div class="also mono reveal">
+      <span>[ Also find me ]</span>
+      <a href="https://www.behance.net/linaorundas" target="_blank" rel="noopener">Behance ↗</a>
+      <a href="https://instagram.com/luakovsky" target="_blank" rel="noopener">Portal Press ↗</a>
+      <a href="https://instagram.com/luakovsky" target="_blank" rel="noopener">@luakovsky ↗</a>
+      <button class="mono" id="copyBtn" style="border-bottom:1px solid var(--ink);padding-bottom:1px">Copy email</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="mono dark">
+  <div class="wrap"><span>[ © 2026 Lina Orundas ]</span><a href="#home">[ Back to top ↑ ]</a></div>
+</footer>
+
+<!-- PROJECT POP-UP (opens in the center, page behind goes blurry, click outside to close). Nothing to edit here. -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project">
+  <div class="lb-card">
+    <button class="lb-x" id="lbClose" aria-label="Close">✕</button>
+    <div class="lb-media" id="lbMedia"></div>
+    <div class="lb-info">
+      <span class="lb-kicker mono" id="lbKicker"></span>
+      <h3 class="lb-title" id="lbTitle"></h3>
+      <div class="lb-body" id="lbBody"></div>
+      <a class="btn" id="lbLink" href="#" target="_blank" rel="noopener" hidden>Link ↗</a>
+      <button class="btn" id="lbGo" hidden>Go to chapter →</button>
+      <div class="lb-nav mono"><button id="lbPrev">← Prev</button><span id="lbCount"></span><button id="lbNext">Next →</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast mono" id="toast">Email copied ✓</div>
+
+<script>
+/* =====================================================================
+   0. INTRO  (short color screen → curtain lifts → cover writes itself in)
+   ✏️ INTRO_MS = how long the bar runs (1100 = 1.1 seconds)
+   ✏️ SHOW_ONLY_ONCE = true → plays once per visit (recommended for recruiters)
+   ===================================================================== */
+(function () {
+  const INTRO_MS = 1100;
+  const SHOW_ONLY_ONCE = true;
+  const intro = document.getElementById('intro'), bar = document.getElementById('inBar'), count = document.getElementById('inCount');
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let seen = false;
+  try { seen = SHOW_ONLY_ONCE && sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
+  function finish() {
+    if (finish.done) return; finish.done = true;
+    document.body.classList.add('loaded');
+    intro.classList.add('out');
+    document.body.style.overflow = '';
+    try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+    setTimeout(() => { intro.style.display = 'none'; }, 800);
+  }
+  if (seen || reduce) { intro.style.display = 'none'; document.body.classList.add('loaded'); return; }
+  document.body.style.overflow = 'hidden';
+  const t0 = performance.now();
+  bar.style.transition = 'transform ' + INTRO_MS + 'ms linear';
+  requestAnimationFrame(() => { bar.style.transform = 'scaleX(1)'; });
+  (function tick(now) {
+    const p = Math.min(1, (now - t0) / INTRO_MS);
+    count.textContent = String(Math.round(p * 100)).padStart(2, '0');
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+  setTimeout(finish, INTRO_MS + 150);
+  intro.addEventListener('click', finish);
+  document.addEventListener('keydown', finish, { once: true });
+})();
+
+/* =====================================================================
+   1. CLOCK (Sweden time)
+   ===================================================================== */
+(function () {
+  const el = document.getElementById('liveClock');
+  function tick() { el.textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Stockholm', hour12: false }) + ' CET'; }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* =====================================================================
+   2. SCROLL EFFECTS: top bar, thin progress line, cover fade, dark top bar over the contact section,
+      and the top-bar link that lights up for the part of the page you are in
+   ===================================================================== */
+(function () {
+  const nav = document.getElementById('nav'), progress = document.getElementById('progress');
+  const heroWrap = document.querySelector('.hero .wrap'), contact = document.getElementById('contact');
+  let ticking = false;
+  function update() {
+    const y = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
+    nav.classList.toggle('scrolled', y > 30);
+    progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    if (y < window.innerHeight * 1.3) {
+      const p = Math.min(1, y / (window.innerHeight * 0.75));
+      heroWrap.style.setProperty('--ho', 1 - p);
+      heroWrap.style.setProperty('--hy', (-p * 40) + 'px');
+    }
+    document.body.classList.toggle('on-dark', contact.getBoundingClientRect().top < 50);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+
+  // top-bar link highlight
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const pairs = links.map(a => ({ a, el: document.querySelector(a.getAttribute('href')) })).filter(p => p.el);
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(l => l.classList.remove('active'));
+      const pair = pairs.find(p => p.el === e.target); if (pair) pair.a.classList.add('active');
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  pairs.forEach(p => spy.observe(p.el));
+})();
+
+/* =====================================================================
+   3. REVEAL ON SCROLL (big titles marked data-split slide up word by word)
+   ===================================================================== */
+(function () {
+  document.querySelectorAll('[data-split]').forEach(el => {
+    const text = el.textContent.trim();
+    el.setAttribute('aria-label', text);
+    el.innerHTML = text.split(/\s+/).map((w, i) => '<span class="w" aria-hidden="true"><span style="--k:' + i + '">' + w + '</span></span>').join(' ');
+  });
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.reveal,.shot,.b,.ux-card,[data-split]').forEach(el => io.observe(el));
+})();
+
+/* =====================================================================
+   4. TABLE OF CONTENTS LOOP: the cards slide endlessly, hover pauses
+   ✏️ SPEED = how fast the cards slide (pixels per second)
+   ===================================================================== */
+(function () {
+  const SPEED = 45;
+  const track = document.getElementById('loopTrack'), loop = document.getElementById('loop');
+  const originals = [...track.children];
+  let copies = 1;
+  while (track.scrollWidth < loop.clientWidth * 2 + 600 && copies < 6) {      // copies so the loop never shows a gap
+    originals.forEach(c => {
+      const n = c.cloneNode(true);
+      n.dataset.clone = '1'; n.setAttribute('aria-hidden', 'true'); n.tabIndex = -1;
+      track.appendChild(n);
+    });
+    copies++;
+  }
+  let x = 0, speed = SPEED, hovering = false, last = performance.now();
+  loop.addEventListener('mouseenter', () => hovering = true);
+  loop.addEventListener('mouseleave', () => hovering = false);
+  loop.addEventListener('focusin', () => hovering = true);
+  loop.addEventListener('focusout', () => hovering = false);
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  (function tick(now) {
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    const target = (hovering || reduce || document.body.style.overflow === 'hidden') ? 0 : SPEED;
+    speed += (target - speed) * Math.min(1, dt * 5);
+    x += speed * dt;
+    const w = track.scrollWidth / copies; if (x >= w) x -= w;
+    track.style.transform = 'translateX(' + (-x) + 'px)';
+    requestAnimationFrame(tick);
+  })(last);
+})();
+
+/* =====================================================================
+   5. POP-UP (projects AND table-of-contents cards)
+   Click: it opens in the center, the page behind blurs, the text appears once it is fully open.
+   Click outside / Esc / ✕ closes it. ← → (or the buttons) move through the group (data-group).
+   WHAT SHOWS:  data-title (title) · data-kicker (small label) · <div class="info" hidden> text
+                (or data-note if there is no .info) · data-link + data-linktext (button, e.g. Behance)
+                data-big="01" (big number instead of a picture) · data-go="#section" (a "Go to chapter" button)
+   ===================================================================== */
+(function () {
+  const box = document.getElementById('lightbox');
+  const media = document.getElementById('lbMedia'), kicker = document.getElementById('lbKicker');
+  const title = document.getElementById('lbTitle'), body = document.getElementById('lbBody');
+  const link = document.getElementById('lbLink'), go = document.getElementById('lbGo'), count = document.getElementById('lbCount');
+  const prev = document.getElementById('lbPrev'), next = document.getElementById('lbNext');
+  let list = [], idx = 0;
+
+  function show(i) {
+    idx = (i + list.length) % list.length;
+    const el = list[idx], img = el.querySelector('img');
+    media.innerHTML = '';
+    if (el.dataset.big) {
+      const t = document.createElement('div'); t.className = 'lb-bigtype';
+      t.innerHTML = '<span class="mono">Table of contents</span><b>' + el.dataset.big + '</b><span class="mono">Lina Orundas — Portfolio</span>';
+      media.appendChild(t);
+    } else if (img && img.complete && img.naturalWidth) {
+      const big = document.createElement('img'); big.src = img.currentSrc || img.src; big.alt = img.alt || '';
+      media.appendChild(big);
+    } else {
+      const ph = document.createElement('div'); ph.className = 'lb-ph'; ph.textContent = el.dataset.ph || 'Add your image';
+      media.appendChild(ph);
+    }
+    kicker.textContent = el.dataset.kicker ? '[ ' + el.dataset.kicker + ' ]' : '';
+    title.textContent = el.dataset.title || '';
+    const info = el.querySelector('.info');
+    body.innerHTML = '';
+    if (info) body.innerHTML = info.innerHTML;
+    else if (el.dataset.note) { const p = document.createElement('p'); p.textContent = el.dataset.note; body.appendChild(p); }
+    if (el.dataset.link) { link.href = el.dataset.link; link.textContent = el.dataset.linktext || 'Open ↗'; link.hidden = false; } else link.hidden = true;
+    if (el.dataset.go) { go.dataset.go = el.dataset.go; go.hidden = false; } else go.hidden = true;
+    count.textContent = list.length > 1 ? (idx + 1) + ' / ' + list.length : '';
+    prev.style.visibility = next.style.visibility = list.length < 2 ? 'hidden' : 'visible';
+    box.querySelector('.lb-info').scrollTop = 0;
+  }
+  function open(el) {
+    if (el.dataset.clone) el = document.querySelector('[data-go="' + el.dataset.go + '"]:not([data-clone])') || el;   // loop copies open the real card
+    const g = el.closest('[data-group]');
+    list = g ? [...g.querySelectorAll('[data-lightbox]')].filter(x => !x.dataset.clone) : [el];
+    show(list.indexOf(el));
+    box.classList.add('open'); box.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lbClose').focus({ preventScroll: true });
+  }
+  function close() {
+    box.classList.remove('open'); box.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', e => {
+    if (box.classList.contains('open')) {
+      if (e.target === box || e.target.closest('#lbClose')) close();            // click outside = back to the page
+      else if (e.target.closest('#lbPrev')) show(idx - 1);
+      else if (e.target.closest('#lbNext')) show(idx + 1);
+      else if (e.target.closest('#lbGo')) {
+        const target = document.querySelector(go.dataset.go);
+        close();
+        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
+      }
+      return;
+    }
+    const el = e.target.closest('[data-lightbox]');
+    if (el && !e.target.closest('a')) open(el);                                  // links inside a card still work
+  });
+  document.addEventListener('keydown', e => {
+    if (box.classList.contains('open')) {
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+      return;
+    }
+    const a = document.activeElement;
+    if ((e.key === 'Enter' || e.key === ' ') && a && a.matches && a.matches('[data-lightbox][tabindex]')) { e.preventDefault(); open(a); }
+  });
+})();
+
+/* =====================================================================
+   6. COPY EMAIL   ✏️ change your email here too
+   ===================================================================== */
+(function () {
+  const MY_EMAIL = 'linaorundas70@gmail.com';
+  const btn = document.getElementById('copyBtn'), toast = document.getElementById('toast');
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(MY_EMAIL).then(() => { toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); });
+  });
+})();
+</script>
+</body>
+</html>
