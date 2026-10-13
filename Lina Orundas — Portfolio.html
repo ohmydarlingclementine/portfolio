@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lina Orundas — Designer</title>
+<meta name="description" content="Lina Orundas: multidisciplinary designer in Sweden. Graphic design, branding, social media, photography, editorial writing and UX/UI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@500&family=Doto:wght@900&family=Inter+Tight:wght@500;700;800&family=Pinyon+Script&family=UnifrakturCook:wght@700&family=Unbounded:wght@900&family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+/* ✏️ COLORS: black, white and pink only */
+:root{--ink:#0A0A0A;--pink:#F4A7E1;--hot:#E8329E;--cream:#FBF3F8;--sans:'Inter Tight',Helvetica,Arial,sans-serif;--head:'Archivo Black','Inter Tight',Arial,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+body{background:#fff;color:var(--ink);font:500 19px/1.6 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.w{padding-left:clamp(20px,4vw,56px);padding-right:clamp(20px,4vw,56px)}
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:9;display:flex;justify-content:space-between;padding-top:18px;padding-bottom:18px;color:#fff;mix-blend-mode:difference;font:800 16px var(--sans)}
+nav div{display:flex;gap:26px}
+.btn{display:inline-block;background:#fff;color:#000;font:800 18px var(--sans);padding:15px 30px;border-radius:99px;border:2px solid #fff;cursor:pointer}
+.btn.o{background:none;color:#fff}
+.btn:hover{background:var(--hot);border-color:var(--hot);color:#fff}
+.btn.k{background:var(--ink);border-color:var(--ink);color:#fff}
+/* HERO */
+.hero{background:#000;color:#fff;min-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,4vw,56px);padding-top:100px;padding-bottom:56px}
+#name{display:block;white-space:nowrap;overflow:hidden;text-align:center;font-weight:400;line-height:1;height:1.1em;font-size:100px}
+.under{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
+.under p{font:800 clamp(26px,3.6vw,50px)/1.12 var(--sans);letter-spacing:-.02em;max-width:18em}
+.under p b{color:var(--pink)}
+.btns{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.photo{aspect-ratio:4/5;border-radius:16px;background:url(images/me.jpg) center/cover,linear-gradient(160deg,#F4A7E1,#5a2a48)}
+/* ABOUT */
+.about{padding-top:clamp(60px,8vw,110px);padding-bottom:clamp(60px,8vw,110px);color:#fff;background:linear-gradient(rgba(0,0,0,.66),rgba(0,0,0,.66)),url(images/me.jpg) center/cover,linear-gradient(160deg,#2a1020,#000)}
+.ah{text-align:center;margin-bottom:clamp(30px,6vw,80px)}
+.ah h2{font:900 clamp(44px,11vw,170px)/1 'Unbounded',var(--head);color:var(--pink);letter-spacing:-.02em;margin:0}
+.ah em{display:block;font:400 clamp(70px,13vw,200px)/.6 'Pinyon Script',cursive;color:var(--hot);margin-top:.1em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);max-width:1200px;margin:0 auto}
+.about p{font-size:clamp(18px,1.6vw,22px);line-height:1.6}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,5vw,80px);max-width:1200px;margin:clamp(40px,6vw,80px) auto 0;border-top:3px solid var(--pink);padding-top:28px}
+.facts h3{font:400 24px var(--head);color:var(--pink);margin-bottom:10px;text-transform:uppercase}
+.facts li{padding:3px 0}
+/* CONTENTS */
+section{padding-top:clamp(70px,9vw,130px)}
+h2.t{font:400 clamp(48px,9vw,130px)/1 var(--head);text-transform:uppercase;letter-spacing:-.03em;margin-bottom:clamp(24px,4vw,50px)}
+h2.t i{font-style:normal;color:var(--hot)}
+.toc a{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:18px 0;border-top:3px solid var(--ink);font:400 clamp(24px,4.2vw,56px)/1.1 var(--head);text-transform:uppercase}
+.toc a:last-child{border-bottom:3px solid var(--ink)}
+.toc a span{color:var(--hot);font-size:.6em}
+.toc a:hover{color:var(--hot);padding-left:14px}
+.toc a{transition:padding .2s}
+/* WORK RAILS */
+.seg{display:grid;grid-template-columns:minmax(260px,.8fr) 1.6fr;gap:clamp(24px,5vw,80px);padding-top:clamp(40px,5vw,70px);padding-bottom:clamp(40px,5vw,70px);border-top:3px solid var(--ink);scroll-margin-top:20px}
+.side{align-self:start;position:sticky;top:80px}
+.num{font:400 22px var(--head);color:var(--hot)}
+.side h3{font:400 clamp(34px,4.2vw,60px)/1 var(--head);text-transform:uppercase;letter-spacing:-.03em;margin:8px 0 12px}
+.side .tag{font:800 24px/1.25 var(--sans);margin-bottom:12px}
+.side h4{font:400 18px var(--head);text-transform:uppercase;margin:22px 0 6px;color:var(--hot)}
+.side li{padding:3px 0}
+.tools{margin-top:18px;font-weight:800}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px)}
+.c{display:block}
+.c:first-child{grid-column:1/-1}
+.c:first-child .im{aspect-ratio:16/10}
+.im{aspect-ratio:4/5;border-radius:16px;background-size:cover;background-position:center;transition:transform .25s}
+.c:hover .im{transform:scale(.97)}
+.c b{display:block;font:800 clamp(22px,2vw,28px)/1.15 var(--sans);margin-top:12px}
+.c:hover b{color:var(--hot)}
+.c span{display:block;color:#444;margin-top:4px}
+/* editorial article */
+.art{grid-column:1/-1;background:var(--cream);border-radius:16px;padding:clamp(22px,3vw,40px)}
+.art .page{columns:2;column-gap:32px;font:400 19px/1.65 Georgia,serif;text-align:justify;hyphens:auto}
+.art .page p+p{margin-top:14px}
+.art .page p:first-child::first-letter{font:700 5.4em/.8 'UnifrakturCook',serif;float:left;margin:.06em .1em 0 0;color:var(--hot);background:#fff;border:3px solid var(--ink);padding:.06em .1em .02em}
+.art h5{font:400 24px var(--head);text-transform:uppercase;margin-bottom:14px}
+/* CONTACT */
+.ct{background:#000;color:#fff;margin-top:clamp(70px,9vw,130px);padding-top:clamp(60px,8vw,110px);padding-bottom:50px;text-align:center}
+.ct h2{font:400 clamp(54px,12vw,190px)/1 var(--head);text-transform:uppercase;letter-spacing:-.03em}
+.ct h2 i{font-style:normal;color:var(--pink)}
+.clock{font:700 20px var(--sans);margin:14px 0 6px}
+.clock b{color:var(--pink)}
+.ct>p{max-width:560px;margin:0 auto 24px;font-size:22px}
+.lbl{font:400 18px var(--head);text-transform:uppercase;color:var(--pink);margin:34px 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:0 auto}
+.chip{font:700 17px var(--sans);color:#fff;border:2px solid #fff;border-radius:99px;padding:10px 20px;background:none;cursor:pointer}
+.chip:hover,.chip.on{background:var(--pink);border-color:var(--pink);color:#000}
+.mail{display:inline-block;margin-top:34px;font:700 clamp(20px,3.4vw,40px) var(--sans);border-bottom:3px solid var(--pink);padding-bottom:6px;background:none;border-top:0;border-left:0;border-right:0;color:#fff;cursor:pointer}
+.mail:hover{color:var(--pink)}
+.ct .btns{justify-content:center}
+.badge{width:130px;height:130px;margin:0 auto 10px;animation:sp 16s linear infinite}
+.badge text{font:800 11px var(--sans);fill:#fff;letter-spacing:.12em}
+@keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:26px;right:26px;background:var(--hot);color:#fff;padding:14px 26px;border-radius:99px;font-weight:800;transform:translateY(100px);opacity:0;transition:.35s;z-index:20}
+.toast.show{transform:none;opacity:1}
+@media(max-width:860px){.under,.cols,.facts,.seg{grid-template-columns:1fr}.side{position:static}.photo{max-width:420px;aspect-ratio:1}.art .page{columns:1}nav div{gap:14px}.cards{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.badge{animation:none}}
+</style>
+</head>
+<body>
+<nav class="w"><a href="#top">Lina Orundas</a><div><a href="#about">About</a><a href="#work">Work</a><a href="#contact">Hire me</a></div></nav>
+
+<header class="hero w" id="top">
+  <h1 id="name" aria-label="Lina Orundas">Lina Orundas</h1>
+  <div class="under">
+    <div>
+      <p>Brands, interfaces <b>&amp; stories</b> across print, screen and social.</p>
+      <div class="btns"><a class="btn" href="#contact">Hire me</a><a class="btn o" href="#work">See my work</a></div>
+    </div>
+    <div class="photo" role="img" aria-label="Lina Orundas"></div>
+  </div>
+</header>
+
+<section class="about w" id="about" style="margin-top:0">
+  <div class="ah"><h2>About</h2><em>Me</em></div>
+  <div class="cols">
+    <p>I'm a multidisciplinary creative focused on web design, UX/UI, digital marketing and visual storytelling. I enjoy turning ideas into digital experiences that combine aesthetics with strategy, work that is both visually impactful and user-centered. From branding and graphic design to social media content and web experiences, I'm driven by creativity, detail and purposeful design.</p>
+    <p>My creative journey goes beyond the digital space through illustration, music and photography, all of which continue to shape my artistic perspective. I'm a New Media Design student, originally from Istanbul and now based in Sweden. Rebrands, campaigns, interfaces and written pieces all start the same way for me: a clear idea, then the typography to carry it.</p>
+  </div>
+  <div class="facts">
+    <div><h3>Skills</h3><ul><li>Graphic design</li><li>Rebranding and identity</li><li>Social media content and management</li><li>SEO and digital marketing</li><li>UX / UI design</li><li>Photography and styling</li><li>Illustration, drawing and painting</li><li>Editorial writing</li></ul></div>
+    <div><h3>Software</h3><ul><li>Figma</li><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>InDesign</li><li>Premiere Pro</li><li>CapCut</li></ul></div>
+    <div><h3>Languages and interests</h3><ul><li>English: near-native</li><li>Swedish: understand most, speak some</li><li>Photography, styling and fashion</li><li>Art, music and DJing</li></ul></div>
+  </div>
+</section>
+
+<section class="w" id="work">
+  <h2 class="t">Selected <i>work</i></h2>
+  <div class="toc">
+      <a href="#w1"><span>01</span> Graphic design &amp; illustration</a>
+      <a href="#w2"><span>02</span> Branding &amp; marketing</a>
+      <a href="#w3"><span>03</span> Social media &amp; photography</a>
+      <a href="#w4"><span>04</span> Editorial writing</a>
+      <a href="#w5"><span>05</span> UX / UI</a>
+  </div>
+</section>
+
+<div class="w" id="segs"><!-- ✏️ sections are written from the SECTIONS list at the bottom of this file --></div>
+
+<footer class="ct w" id="contact">
+  <svg class="badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bp" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#bp" textLength="270" lengthAdjust="spacing">AVAILABLE FOR WORK · LET'S TALK · </textPath></text><text x="60" y="70" text-anchor="middle" font-size="28" fill="#F4A7E1">✦</text></svg>
+  <h2>Hire <i>me</i></h2>
+  <div class="clock">Sweden · <b id="clk">00:00:00</b></div>
+  <p>Open to full-time, part-time and freelance work, remote worldwide. I usually reply within 24–48 hours.</p>
+  <div class="lbl">What is it about? Pick one</div>
+  <div class="chips" id="chips"></div>
+  <!-- ✏️ email -->
+  <button class="mail" id="copy" title="Click to copy">linaorundas70@gmail.com</button>
+  <div class="btns"><a class="btn" id="send" href="mailto:linaorundas70@gmail.com">Send an email</a><a class="btn o" href="https://www.behance.net/linaorundas">Behance</a><a class="btn o" href="https://www.linkedin.com/in/lina-orundas-022067332/">LinkedIn</a><a class="btn o" href="https://instagram.com/luakovsky">Portal Press</a></div>
+</footer>
+<div class="toast" id="toast">Email copied ✓</div>
+
+<script>
+/* ✏️ WORK SECTIONS: edit text here. Card = [title, one line, image file]. First card is shown big. */
+var B="https://www.behance.net/linaorundas";
+var SECTIONS=[
+{id:"w1",n:"01",t:"Graphic design &amp; illustration",tag:"Type first. Everything else follows.",
+ p:"Posters, print catalogs and publication layouts built on precise typography and tactile grids. Away from the computer I draw and paint, and I bring that hand-made energy into digital illustration.",
+ d:["Posters and print","Publication and catalog layout","Typography","Digital illustration","Drawing and painting"],tools:"Illustrator, Photoshop, InDesign",
+ c:[["Posters and print","Layouts built on a strict grid and strong type.","design-1","#F4A7E1"],["Digital illustration","Drawn by hand, finished on screen.","illus-1","#1a1a1a"],["Drawing and painting","Paper and canvas work.","draw-1","#E8329E"]]},
+{id:"w2",n:"02",t:"Branding &amp; marketing",tag:"Identity that works as hard as it looks.",
+ p:"Visual identities, logotypes and color systems that carry across packaging, merchandise and digital, plus the marketing that puts them to work: SEO, digital marketing optimization, campaigns and content.",
+ d:["Brand identity and logo","Color and typography systems","Social media strategy","SEO, on-page and off-page","Digital marketing optimization","Campaign and content planning"],tools:"Illustrator, Photoshop, Figma, SEO tools",
+ c:[["Sustainable coffee shop: full brand identity","Group case study with logo, color palette, typography and social media. My focus was social media.","brand-case","#5a2a48",B],["Brand projects","Logos and identity systems.","brand-1","#F4A7E1"],["SEO and campaigns","Content planning and search optimization.","brand-2","#1a1a1a"]]},
+{id:"w3",n:"03",t:"Social media &amp; photography",tag:"Content that moves, and an eye that is trained.",
+ p:"Campaigns and short-form video shaped for each platform, plus photography, styling, fashion, art and music (I also DJ) that feed everything I design.",
+ d:["Social media campaigns","Short-form video","Photography and styling","Fashion and art","Music and DJing"],tools:"Premiere Pro, CapCut, Photoshop",
+ c:[["Social media projects","Reels, stories and campaign content.","social-1","#E8329E"],["Photography and styling","Analog and digital frames.","photo-1","#1a1a1a"],["Art, music and DJing","The things that shape my taste.","photo-5","#F4A7E1"]]},
+{id:"w4",n:"04",t:"Editorial writing",tag:"Portal Press: written with magazine pacing.",
+ p:"Mood essays, aesthetic stories and styling journals, laid out as magazine spreads. I write, edit and design the page, so the words and the layout work together.",
+ d:["Mood essays","Styling journals","Aesthetic stories","Spreads and layouts"],tools:"InDesign, Photoshop, Figma",
+ c:[["Portal Press","Read it on Instagram.","editorial-1","#5a2a48","https://instagram.com/luakovsky"],["Selected pieces","Essays and journals.","editorial-2","#F4A7E1"],["Spreads and layouts","Two-column magazine pages.","editorial-3","#1a1a1a"]],
+ art:["Portal Press is where I write about mood, style and the small details that make a place or an outfit feel like something.","Replace this text with the opening of one of your pieces. The first letter turns into a medieval-style capital, like an old book."]},
+{id:"w5",n:"05",t:"UX / UI",tag:"User-first interfaces.",
+ p:"Clear navigation, accessibility and prototypes tested with real people. One case study and two UI projects, all on Behance.",
+ d:["User research","Wireframes and prototypes","Design systems","Usability testing","Accessibility"],tools:"Figma",
+ c:[["UX case study","From research to tested prototype.","ux-case","#E8329E",B],["UI project","Interface design.","ux-2","#1a1a1a",B],["UI project","Interface design.","ux-3","#F4A7E1",B]]}
+];
+var h="";SECTIONS.forEach(function(s){
+ h+='<article class="seg" id="'+s.id+'"><div class="side"><div class="num">'+s.n+'</div><h3>'+s.t+'</h3><div class="tag">'+s.tag+'</div><p>'+s.p+'</p><h4>What I do</h4><ul>'+s.d.map(function(x){return'<li>'+x+'</li>'}).join('')+'</ul><div class="tools">'+s.tools+'</div></div><div class="cards">'+
+ s.c.map(function(c){return'<a class="c" href="'+(c[4]||B)+'"><div class="im" style="background-image:url(images/'+c[2]+'.jpg),linear-gradient(160deg,'+c[3]+',#000)"></div><b>'+c[0]+'</b><span>'+c[1]+'</span></a>'}).join('')+
+ (s.art?'<div class="art"><h5>Portal Press</h5><div class="page"><p>'+s.art[0]+'</p><p>'+s.art[1]+'</p></div></div>':'')+'</div></article>'});
+document.getElementById('segs').innerHTML=h;
+
+/* Contact: topic chips change the email subject, email copies on click, live Swedish clock */
+var E="linaorundas70@gmail.com",T=["Full-time role","Part-time role","Freelance project","Branding","Graphic design","Social media","UX / UI","Editorial writing","Photography","Collaboration"],ch=document.getElementById('chips'),sd=document.getElementById('send');
+T.forEach(function(t,i){var b=document.createElement('button');b.className='chip'+(i?'':' on');b.textContent=t;b.onclick=function(){[].forEach.call(ch.children,function(x){x.classList.remove('on')});b.classList.add('on');sd.href='mailto:'+E+'?subject='+encodeURIComponent('Hello Lina: '+t)};ch.appendChild(b)});
+sd.href='mailto:'+E+'?subject='+encodeURIComponent('Hello Lina: '+T[0]);
+document.getElementById('copy').onclick=function(){try{navigator.clipboard.writeText(E)}catch(e){}var o=document.getElementById('toast');o.classList.add('show');setTimeout(function(){o.classList.remove('show')},2200)};
+function ck(){document.getElementById('clk').textContent=new Date().toLocaleTimeString('en-GB',{timeZone:'Europe/Stockholm',hour12:false})+' CET'}setInterval(ck,1000);ck();
+
+/* Name: changes font, stays one fixed size and width, so nothing moves. ✏️ edit font list */
+(function(){
+var F=[["'Archivo Black'",400],["'Pinyon Script'",400],["'Doto'",900],["'UnifrakturCook'",700],["'DM Mono'",500],["'Varela Round'",400]],T="Lina Orundas",n=document.getElementById('name'),i=0,S=100;
+var m=document.createElement('span');m.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font-size:100px;left:-9999px';m.textContent=T;document.body.appendChild(m);
+function wid(f){m.style.fontFamily=f[0]+",serif";m.style.fontWeight=f[1];m.style.letterSpacing='0';return m.getBoundingClientRect().width}
+function fit(){var p=n.parentElement,W=p.clientWidth-parseFloat(getComputedStyle(p).paddingLeft)*2,mx=0;F.forEach(function(f){mx=Math.max(mx,wid(f))});S=100*W/mx*.97;n.style.fontSize=S+'px';show(i)}
+function show(k){var f=F[k%F.length],W=n.clientWidth,w=wid(f)*S/100,ls=Math.max(-.04*S,Math.min(.25*S,(W-w)/T.length));n.style.fontFamily=f[0]+",serif";n.style.fontWeight=f[1];n.style.letterSpacing=ls+'px';n.style.textIndent=ls+'px'}
+function start(){fit();if(!matchMedia('(prefers-reduced-motion:reduce)').matches)setInterval(function(){i++;show(i)},900);addEventListener('resize',fit)}
+Promise.all(F.map(function(f){return document.fonts.load('100px '+f[0],T)})).then(start,start);
+})();
+</script>
+</body>
+</html>
