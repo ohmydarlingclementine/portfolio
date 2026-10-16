@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  
+  <!-- Google Fonts: Handwritten font paired with modern clean sans-serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global Reset & Base Setup */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #111111;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* QUICK INSTRUCTIONS BANNER (VISIBLE AT TOP) */
+    .instructions-banner {
+      background: #f8f9fa;
+      border-bottom: 2px solid #e0e0e0;
+      padding: 20px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .instructions-banner h3 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #000;
+    }
+
+    .instructions-banner ul {
+      margin-left: 20px;
+      margin-top: 6px;
+    }
+
+    .instructions-banner code {
+      background: #e9ecef;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+    }
+
+    /* Fixed Navigation Header */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid #eeeeee;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover {
+      color: #000;
+    }
+
+    /* Container Structure */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    /* SECTION 1: ABOUT ME (Static Layout) */
+    .about-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+      margin-bottom: 100px;
+    }
+
+    .image-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border: 2px dashed #d0d0d0;
+      background-color: #fcfcfc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .placeholder-text {
+      color: #888;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .content-side {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .handwritten-title {
+      font-family: 'Caveat', cursive;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 6px;
+      line-height: 1;
+      text-transform: lowercase;
+    }
+
+    .section-block p {
+      font-size: 0.92rem;
+      color: #333;
+      font-weight: 300;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px 16px;
+      font-size: 0.88rem;
+      color: #333;
+    }
+
+    .contents-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contents-list li {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contents-list a {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contents-list .number {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      font-weight: 700;
+      min-width: 35px;
+    }
+
+    .contents-list .label {
+      font-size: 0.95rem;
+      color: #222;
+      border-bottom: 1px dotted transparent;
+      transition: border-color 0.2s;
+    }
+
+    .contents-list a:hover .label {
+      border-bottom-color: #000;
+    }
+
+    /* SECTION 2: WORK / PORTFOLIO GALLERY */
+    .portfolio-section {
+      padding-top: 40px;
+      margin-bottom: 100px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .project-card {
+      border: 1px solid #eeeeee;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fafafa;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: #111;
+    }
+
+    .project-img {
+      width: 100%;
+      height: 220px;
+      background-color: #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 0.85rem;
+      overflow: hidden;
+    }
+
+    .project-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 18px;
+    }
+
+    .project-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .project-info p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* SECTION 3: CONTACT & FOOTER */
+    footer {
+      border-top: 1px solid #eeeeee;
+      padding: 60px 20px;
+      text-align: center;
+      background: #fafafa;
+    }
+
+    footer .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    footer a {
+      color: #111;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .about-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      nav {
+        padding: 15px 20px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================
+       QUICK GUIDE (You can delete this banner when ready!)
+  ======================================================== -->
+  <div class="instructions-banner">
+    <h3>📌 How to Upload Images & Customize Your Page</h3>
+    <p>Follow these quick instructions to add your own pictures, name, and work sections:</p>
+    <ul>
+      <li><strong>1. Main Illustration:</strong> Replace <code>src="your-drawing.png"</code> with the file path or link to your portrait drawing.</li>
+      <li><strong>2. Project Images:</strong> In the <em>Selected Work</em> gallery, replace <code>src="your-project-image.jpg"</code> with your project cover image.</li>
+      <li><strong>3. Edit Text & Links:</strong> Simply change the text inside the HTML tags (e.g., your name, bio, project titles, and emails).</li>
+    </ul>
+  </div>
+
+  <!-- Navigation Header -->
+  <nav>
+    <!-- Change "portfolio" or "YOUR NAME" here -->
+    <a href="#" class="logo">portfolio</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    
+    <!-- ========================================================
+         SECTION 1: ABOUT ME 
+    ======================================================== -->
+    <section id="about" class="about-section">
+      
+      <!-- Left Column: Portrait Illustration / Photo Slot -->
+      <div class="image-wrapper">
+        <!-- STEP 1: CHANGE 'your-drawing.png' TO YOUR IMAGE PATH -->
+        <img src="your-drawing.png" alt="About Me Illustration" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="placeholder-text" style="display: none;">
+          🖼️ <strong>Upload Main Image Here</strong><br>
+          Replace <code>src="your-drawing.png"</code> with your file path (e.g. <code>src="my-portrait.png"</code>).
+        </div>
+      </div>
+
+      <!-- Right Column: Details & Contents -->
+      <div class="content-side">
+        
+        <!-- About Me Bio -->
+        <div class="section-block">
+          <h1 class="handwritten-title">about me</h1>
+          <p>
+            <!-- EDIT YOUR NAME & BIO HERE -->
+            I'm a graphic designer and illustrator with a background in fine arts. 
+            I enjoy creating visually compelling and meaningful projects. I work well in a team, adapt quickly, 
+            enjoy finding unconventional visual solutions, and remain open to new ideas.
+          </p>
+        </div>
+
+        <!-- Personal Skills -->
+        <div class="section-block">
+          <h2 class="handwritten-title">personal skills</h2>
+          <p>
+            Experienced in web design, prototyping, UI design, pin illustrations, and character development. 
+            Skilled in creating frame-by-frame animations from initial idea and character design to final animation with sound and editing.
+          </p>
+        </div>
+
+        <!-- Software Skills -->
+        <div class="section-block">
+          <h2 class="handwritten-title">software skills</h2>
+          <div class="skills-grid">
+            <div>Adobe Photoshop</div>
+            <div>Figma</div>
+            <div>Procreate</div>
+            <div>Adobe Illustrator</div>
+            <div>Premiere Pro</div>
+            <div>Blender</div>
+            <div>Adobe InDesign</div>
+            <div>After Effects</div>
+            <div>Canva</div>
+          </div>
+        </div>
+
+        <!-- Contents Index -->
+        <div class="section-block">
+          <h2 class="handwritten-title">contents</h2>
+          <ul class="contents-list">
+            <li><a href="#project-1"><span class="number">01.</span><span class="label">illustration</span></a></li>
+            <li><a href="#project-2"><span class="number">02.</span><span class="label">comic book</span></a></li>
+            <li><a href="#project-3"><span class="number">03.</span><span class="label">printmaking</span></a></li>
+            <li><a href="#work"><span class="number">04.</span><span class="label">vinyl record</span></a></li>
+            <li><a href="#work"><span class="number">05.</span><span class="label">calendar</span></a></li>
+            <li><a href="#work"><span class="number">06.</span><span class="label">brand book</span></a></li>
+            <li><a href="#work"><span class="number">07.</span><span class="label">website</span></a></li>
+            <li><a href="#work"><span class="number">08.</span><span class="label">posters</span></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================
+         SECTION 2: WORK / PORTFOLIO GALLERY 
+    ======================================================== -->
+    <section id="work" class="portfolio-section">
+      <h2 class="handwritten-title" style="font-size: 3.5rem;">selected work</h2>
+      
+      <div class="gallery-grid">
+        
+        <!-- PROJECT 1 CARD -->
+        <div class="project-card" id="project-1">
+          <div class="project-img">
+            <!-- STEP 2: ADD YOUR PROJECT IMAGE HERE -->
+            <img src="your-project-1.jpg" alt="Illustration Project" onerror="this.style.display='none'; this.nextElementSibling.style.
