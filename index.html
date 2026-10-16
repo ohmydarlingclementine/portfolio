@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- BROWSER TAB TITLE + GOOGLE DESCRIPTION: change the text between the quotes / tags. -->
+<title>Lina Orundas — Brand, UX/UI &amp; Social Media Designer</title>
+<meta name="description" content="Lina Orundas: multidisciplinary designer in Sweden. Graphic design, branding, social media, SEO, photography, editorial writing and UX/UI. Open to full-time, part-time and freelance work.">
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     QUICK GUIDE (read me first)
+     ───────────────────────────────────────────────────────────────────────────
+     HOW THE FILE IS ORGANISED (top to bottom):
+       1. <style>   = all the looks (colors, sizes, fonts, animations)
+       2. <body>    = the page: menu, cover, ABOUT ENVELOPE, work, contact
+       3. <script>  = the behaviour: work cards, contact chips, name animation, envelope
+
+     FOLDER SETUP: put this file (index.html) and a folder called  images  side by side.
+       my-site/
+         index.html
+         images/   <- every picture below goes in here, as .jpg, EXACT names, lowercase
+
+     ALL IMAGES YOU CAN ADD (if one is missing, a pink-to-black gradient shows instead,
+     so the site never looks broken):
+       COVER + ABOUT
+         me.jpg            portrait of you, 1000 x 1250 px (4:5), under 400 KB. Used on the cover
+                           AND on the polaroid inside the envelope (in black and white)
+         about-bg.jpg      wide dark/calm photo, 2000 x 1200 px, under 500 KB. Sits behind the envelope
+         polaroid.jpg      OPTIONAL separate photo just for the polaroid (see --pola-img below)
+       01 GRAPHIC DESIGN   design-1 (big), illus-1, draw-1
+       02 BRANDING         brand-case (big), brand-1, brand-2
+       03 SOCIAL + PHOTO   social-1 (big), photo-1, photo-5
+       04 EDITORIAL        editorial-1 (big), editorial-2, editorial-3
+       05 UX / UI          ux-case (big), ux-2, ux-3
+     (each work card = images/NAME.jpg. "big" = landscape 1600 x 1000 px,
+      the other two = portrait 800 x 1000 px. Keep each under 300 KB.)
+     ═══════════════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- FONTS: loaded from Google Fonts. Pinyon Script = the fancy handwriting ("About me" on the envelope).
+     Archivo Black = big headings. Inter Tight = normal text. DM Mono = the small [ bracket ] labels.
+     The rest (Doto, UnifrakturCook, Unbounded, Varela Round) are for the animated name on the cover. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@500&family=Doto:wght@900&family=Inter+Tight:wght@500;700;800&family=Pinyon+Script&family=UnifrakturCook:wght@700&family=Unbounded:wght@900&family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════ 1. COLORS, FONTS, PHOTOS ═══════════════════════════════
+   Everything in :root is a "variable" you can change once and it updates the whole site.
+   --hero-img   the portrait on the cover            (file: images/me.jpg)
+   --about-img  the dark photo behind the envelope   (file: images/about-bg.jpg)
+   --pola-img   the polaroid photo inside the folder (by default the SAME as the cover photo).
+                Want a different photo there? Replace  var(--hero-img)  with  url(images/polaroid.jpg)
+   --ink   = black      --pink = soft pink      --hot = strong pink (hover, numbers, accents)
+   --cream = off-white paper colour             --sans / --head = body font / heading font          */
+:root{--hero-img:url(images/me.jpg);--about-img:url(images/about-bg.jpg);--pola-img:var(--hero-img);--ink:#0A0A0A;--pink:#F4A7E1;--hot:#E8329E;--cream:#FBF3F8;--sans:'Inter Tight',Helvetica,Arial,sans-serif;--head:'Archivo Black','Inter Tight',Arial,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+/* smooth scrolling when you click a menu link. overflow-anchor:none stops the browser from
+   "jumping" the page when the envelope closes by itself (the script handles that smoothly) */
+html{scroll-behavior:smooth;overflow-anchor:none}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+/* BODY: base text. 19px is the normal text size; change it to make all text bigger/smaller */
+body{background:#fff;color:var(--ink);font:500 19px/1.6 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+/* .w = "wrapper": gives the left/right breathing room. Put class="w" on anything that needs side margins */
+.w{padding-left:clamp(20px,4vw,56px);padding-right:clamp(20px,4vw,56px)}
+
+/* ═══════════════════════════════ 2. MENU BAR (top) ═══════════════════════════════
+   Slim black glass bar fixed to the top. Links use the same [ bracket ] style as the rest.
+   To add a menu item, add another <a href="#something">Name</a> in the <nav> in the HTML below. */
+nav{position:fixed;top:0;left:0;right:0;z-index:9;display:flex;justify-content:space-between;align-items:center;padding-top:calc(14px + env(safe-area-inset-top,0px));padding-bottom:14px;color:#fff;background:rgba(0,0,0,.84);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(244,167,225,.3);font:800 16px var(--sans)}
+nav div{display:flex;gap:clamp(14px,2.4vw,34px)}
+nav div a{font:500 clamp(11px,1vw,14px) 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+nav div a::before{content:"[ "}
+nav div a::after{content:" ]"}
+nav a:hover{color:var(--pink)}
+
+/* ═══════════════════════════════ 3. BUTTONS ═══════════════════════════════
+   .btn   = white pill button       .btn.o = outlined (see-through) version
+   .btn.k = black version           .btn.sm = smaller version      Hover turns them hot pink */
+.btn{display:inline-block;background:#fff;color:#000;font:800 18px var(--sans);padding:15px 30px;border-radius:99px;border:2px solid #fff;cursor:pointer}
+.btn.o{background:none;color:#fff}
+.btn:hover{background:var(--hot);border-color:var(--hot);color:#fff}
+.btn.k{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* ═══════════════════════════════ 4. COVER (HERO) ═══════════════════════════════
+   Everything sits on a 12-column grid so it all lines up. min-height:100svh = fills the screen. */
+.hero{background:#000;color:#fff;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(20px,3vw,44px);padding-top:calc(78px + env(safe-area-inset-top,0px) + clamp(12px,2vh,24px));padding-bottom:clamp(24px,3.4vw,48px)}
+/* .mono = the small uppercase DM Mono labels */
+.mono{font:500 clamp(11px,1vw,14px)/1.3 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+.tags{margin-bottom:auto;display:flex;justify-content:space-between;gap:16px;color:var(--pink)}
+/* #name = your big animated name. The script at the bottom resizes it to touch both edges */
+#name{display:flex;align-items:center;white-space:nowrap;overflow:hidden;font-weight:400;line-height:1;font-size:100px;width:100%}
+.under{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);align-items:end}
+.under .txt{grid-column:1/9}            /* text takes columns 1 to 8 */
+.under p{font:800 clamp(30px,5vw,78px)/1.04 var(--sans);letter-spacing:-.03em;max-width:13em}
+.under p b{color:var(--pink)}           /* <b> words in the big sentence turn pink */
+.btns{display:flex;gap:14px;margin-top:clamp(22px,3vw,40px);flex-wrap:wrap}
+.under .pic{grid-column:10/13}          /* photo takes columns 10 to 12 */
+.photo{aspect-ratio:4/5;width:100%;border-radius:12px;background:var(--hero-img) center/cover,linear-gradient(160deg,#F4A7E1,#5a2a48)}
+.under .sub{font:500 clamp(16px,1.35vw,20px)/1.55 var(--sans);color:#d6d6d6;max-width:34em;margin-top:clamp(16px,2vw,26px)}
+[hidden]{display:none!important}        /* makes the hidden "Download CV" button really hidden */
+.cap{display:flex;justify-content:space-between;margin-top:10px;color:#bbb}
+
+/* ═══════════════════════════════ 5. ABOUT: THE ENVELOPE ═══════════════════════════════
+   The section has a dark photo background. Inside it:
+     .stage   = holds the envelope + the content that appears when it opens
+     .env     = the closed/open envelope (pink, with a flap, seal and label)
+     .reveal  = the pink folder with your polaroid + text (hidden until you open the envelope)
+   The envelope opens when the class "open" is added to .stage (the script at the bottom does that). */
+.about{padding-top:clamp(56px,6vw,90px);padding-bottom:clamp(44px,5vw,70px);color:#fff;background:linear-gradient(rgba(0,0,0,.66),rgba(0,0,0,.66)),var(--about-img) center/cover,linear-gradient(160deg,#2a1020,#000)}
+/* ✏️ background photo darkness: change both .66 values above (0 = no dark layer, 1 = fully black) */
+
+/* --ew = envelope width. Change 520px to make the envelope bigger or smaller (86vw = max 86% of screen on phones) */
+.stage{--ew:min(520px,86vw);padding-top:calc(var(--ew)*.04);transition:padding-top .7s cubic-bezier(.2,.8,.2,1)}
+/* when open we need empty space ABOVE the envelope so the flap has room to fold upwards */
+.stage.open{padding-top:calc(var(--ew)*.36)}
+
+.env{position:relative;width:var(--ew);height:calc(var(--ew)*.667);margin:0 auto;cursor:pointer;transform:rotate(-2deg);transition:transform .5s ease;perspective:1200px;-webkit-tap-highlight-color:transparent;outline-offset:14px}
+/* little lift on hover (only while closed). rotate(-2deg) = the slight tilt; set to 0deg for a straight envelope */
+.stage:not(.open) .env:hover{transform:rotate(-2deg) translateY(-6px)}
+.stage.open .env{transform:rotate(0deg)}
+
+/* ENVELOPE BACK (the inside, visible once the flap is open). Colors = the pink gradient */
+.e-back{position:absolute;inset:0;z-index:0;border-radius:8px;background:linear-gradient(145deg,#b9619f,#8e3f78);box-shadow:0 26px 54px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.18)}
+
+/* LITTLE PAPER CARD that slides up out of the envelope when it opens (the "hello" note) */
+.e-card{position:absolute;z-index:1;left:7%;right:7%;top:9%;height:78%;background:var(--cream);border-radius:6px;padding:clamp(10px,2.4vw,18px);display:flex;flex-direction:column;gap:6px;color:#0A0A0A;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .8s cubic-bezier(.2,.8,.2,1) .15s}
+.e-card em{font:400 clamp(26px,5.4vw,40px)/1 'Pinyon Script',cursive}
+.stage.open .e-card{transform:translateY(-44%)}    /* ✏️ -44% = how far the note slides up */
+
+/* ENVELOPE FRONT POCKET (the V-shaped front). clip-path cuts the pink into the envelope shape.
+   The two ::before / ::after layers just add light and shade on the left and right triangles. */
+.e-pocket{position:absolute;inset:0;z-index:2;border-radius:8px;background:linear-gradient(180deg,#e39acf,#bd68a3);clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+.e-pocket::before,.e-pocket::after{content:"";position:absolute;inset:0}
+.e-pocket::before{background:linear-gradient(90deg,rgba(255,255,255,.3),rgba(255,255,255,0) 65%);clip-path:polygon(0 0,50% 52%,0 100%)}
+.e-pocket::after{background:linear-gradient(270deg,rgba(0,0,0,.2),rgba(0,0,0,0) 65%);clip-path:polygon(100% 0,50% 52%,100% 100%)}
+
+/* THE WORDS ON THE ENVELOPE ("About me" + "[ open me ]"). Text itself is in the HTML below. */
+.e-label{position:absolute;left:0;right:0;bottom:9%;text-align:center;z-index:2;color:#0A0A0A}
+.e-label em{display:block;font:400 clamp(44px,9.4vw,74px)/.9 'Pinyon Script',cursive}
+.e-label .mono{display:block;margin-top:6px}
+.e-label .mono::after{content:" ↓";display:inline-block;animation:nudge 1.6s ease-in-out infinite}   /* the bouncing arrow */
+@keyframes nudge{50%{transform:translateY(4px)}}
+.stage.open .e-label .mono::after{content:""}
+
+/* THE FLAP (top triangle). Folds up when open. transform-origin:top = it hinges on its top edge.
+   z-index:3 while closed (covers the card); 0 when open (so the card passes in front of it) */
+.e-flap{position:absolute;left:0;right:0;top:0;height:52%;z-index:3;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#f0b3e0,#cf7ab9);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transition:transform .7s cubic-bezier(.4,.1,.2,1),z-index 0s .35s,filter .7s}
+.stage.open .e-flap{transform:rotateX(180deg);z-index:0;filter:brightness(.78)}
+/* THE SEAL (little round sticker on the flap tip). Change ✦ in the HTML for any symbol or letter, or the colour here */
+.e-seal{position:absolute;left:50%;bottom:13%;width:clamp(30px,6vw,42px);height:clamp(30px,6vw,42px);margin-left:calc(clamp(30px,6vw,42px)/-2);border-radius:50%;background:var(--hot);color:#fff;display:grid;place-items:center;font-size:clamp(14px,3vw,20px);box-shadow:0 3px 8px rgba(0,0,0,.35);transition:opacity .25s}
+.stage.open .e-seal{opacity:0}
+
+/* THE CONTENT THAT APPEARS (.reveal). It grows from height 0 to its full height (the 0fr -> 1fr trick),
+   so it "unfolds" below the envelope. To make it open faster/slower change the .7s values. */
+.reveal{display:grid;grid-template-rows:0fr;opacity:0;transform:translateY(-34px);visibility:hidden;transition:grid-template-rows .8s cubic-bezier(.2,.8,.2,1),opacity .5s ease,transform .8s cubic-bezier(.2,.8,.2,1),visibility 0s .8s}
+.stage.open .reveal{grid-template-rows:1fr;opacity:1;transform:none;visibility:visible;transition-delay:.15s,.15s,.15s,0s}
+.r-in{overflow:hidden;min-height:0}
+.r-pad{padding:64px 0 28px}      /* room so the polaroid and shadows are not cut off */
+.r-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
+/* while the script closes the envelope by itself (after you scroll away), no animation is played */
+.stage.snap,.stage.snap *{transition:none!important}
+
+/* THE PINK PAPER FOLDER (inside the envelope). ✏️ pink = #F7C4EA (.sheet), tab = #F2B6E2 (.ftab) */
+.folder{position:relative;isolation:isolate;max-width:900px;margin:0 auto}
+.folder::before{content:"";position:absolute;left:4%;right:6%;top:-10px;height:50px;background:var(--cream);border-radius:6px 6px 0 0;transform:rotate(-.4deg);z-index:-1}
+.ftab{display:inline-block;position:relative;background:#F2B6E2;color:#0A0A0A;border-radius:12px 12px 0 0;padding:9px 22px 7px;margin-left:clamp(8px,2vw,24px)}
+.sheet{position:relative;background:#F7C4EA;color:#0A0A0A;border-radius:8px 18px 18px 18px;padding:clamp(18px,2.6vw,36px);box-shadow:0 24px 54px rgba(0,0,0,.45)}
+/* PAPER CLIP + POLAROID (top right). Width of the polaroid = clamp(90px,10vw,150px): min, ideal, max */
+.clip{position:absolute;right:calc(clamp(14px,3vw,40px) + clamp(90px,10vw,150px) - 14px);top:calc(-1 * clamp(20px,2vw,32px) - 16px);width:20px;z-index:3}
+.pola{position:absolute;right:clamp(14px,3vw,40px);top:calc(-1 * clamp(20px,2vw,32px));width:clamp(90px,10vw,150px);background:#fff;padding:6px 6px 22px;box-shadow:0 10px 24px rgba(0,0,0,.35);transform:rotate(3deg);z-index:2}
+/* filter:grayscale(1) = black and white photo. Delete "grayscale(1)" to show it in colour */
+.pola div{aspect-ratio:4/5;background:var(--pola-img) center/cover,linear-gradient(160deg,#F4A7E1,#5a2a48);filter:grayscale(1) contrast(1.05)}
+/* FOLDER HEADING: handwriting "About" + "LINA ORUNDAS" + small line */
+.fh{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:clamp(14px,1.8vw,26px);padding-top:clamp(10px,1.6vw,24px);padding-right:clamp(110px,14vw,190px)}
+.fh em{font:400 clamp(44px,5.6vw,86px)/.9 'Pinyon Script',cursive;color:#0A0A0A;letter-spacing:0;padding-right:.12em}
+.fh h2{font:400 clamp(22px,3.2vw,50px)/1 var(--head);text-transform:uppercase;letter-spacing:-.04em;color:#0A0A0A}
+.fh .mono{flex-basis:100%;margin-top:8px}
+/* TEXT: .lead = the bigger first paragraph, .rest = the smaller 2-column text */
+.cols{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(14px,2vw,28px);row-gap:14px;align-items:start;margin-top:clamp(14px,2vw,26px)}
+.cols .lead{grid-column:1/-1;font:800 clamp(17px,1.5vw,21px)/1.35 var(--sans);letter-spacing:-.01em}
+.cols .rest{grid-column:1/-1;columns:2;column-gap:28px;font-size:clamp(13px,1vw,15px);line-height:1.5}
+.cols .rest p{break-inside:avoid}
+.cols .rest p+p{margin-top:8px}
+/* FACTS: the 4 lists (What I bring / Skills / Software / Languages). span 6 = 2 lists per row */
+.facts{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(14px,2vw,28px);row-gap:18px;margin-top:clamp(18px,2.4vw,30px);border-top:2px solid #0A0A0A;padding-top:16px}
+.facts>div{grid-column:span 6}
+.facts h3{font:500 clamp(11px,.9vw,12px) 'DM Mono',monospace;letter-spacing:.08em;margin-bottom:6px;text-transform:uppercase}
+.facts li{padding:1px 0;font-size:clamp(13px,1vw,15px);line-height:1.35;font-weight:600}
+.facts li i{font-style:normal;font-weight:500;opacity:.7}
+
+/* ═══════════════════════════════ 6. "SELECTED WORK" CONTENTS LIST ═══════════════════════════════ */
+section{padding-top:clamp(70px,9vw,130px)}
+h2.t{font:400 clamp(48px,9vw,130px)/1 var(--head);text-transform:uppercase;letter-spacing:-.03em;margin-bottom:clamp(24px,4vw,50px)}
+h2.t i{font-style:normal;color:var(--hot)}
+.toc a{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:18px 0;border-top:3px solid var(--ink);font:400 clamp(24px,4.2vw,56px)/1.1 var(--head);text-transform:uppercase}
+.toc a:last-child{border-bottom:3px solid var(--ink)}
+.toc a span{color:var(--hot);font-size:.6em}
+.toc a:hover{color:var(--hot);padding-left:14px}
+.toc a{transition:padding .2s}
+
+/* ═══════════════════════════════ 7. WORK SECTIONS (the 5 blocks with cards) ═══════════════════════════════
+   .seg = one work section. Left column (.side) stays "sticky" while the cards scroll on the right.
+   .cards = the image grid. The FIRST card is big (full width), the others are two small ones. */
+.seg{display:grid;grid-template-columns:minmax(260px,.8fr) 1.6fr;gap:clamp(24px,5vw,80px);padding-top:clamp(40px,5vw,70px);padding-bottom:clamp(40px,5vw,70px);border-top:3px solid var(--ink);scroll-margin-top:70px}
+.side{align-self:start;position:sticky;top:90px}
+.num{font:400 22px var(--head);color:var(--hot)}
+.side h3{font:400 clamp(34px,4.2vw,60px)/1 var(--head);text-transform:uppercase;letter-spacing:-.03em;margin:8px 0 12px}
+.side .tag{font:800 24px/1.25 var(--sans);margin-bottom:12px}
+.side h4{font:400 18px var(--head);text-transform:uppercase;margin:22px 0 6px;color:var(--hot)}
+.side li{padding:3px 0}
+.tools{margin-top:18px;font-weight:800}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px)}
+.btn.sm{font-size:16px;padding:12px 24px;margin-top:22px}
+.go{display:block;margin-top:8px;font:500 13px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--hot);font-style:normal}
+.c{display:block}
+.c:first-child{grid-column:1/-1}
+.c:first-child .im{aspect-ratio:16/10}   /* big card = landscape 16:10 */
+.im{aspect-ratio:4/5;border-radius:16px;background-size:cover;background-position:center;transition:transform .25s}   /* small cards = portrait 4:5 */
+.c:hover .im{transform:scale(.97)}
+.c b{display:block;font:800 clamp(22px,2vw,28px)/1.15 var(--sans);margin-top:12px}
+.c:hover b{color:var(--hot)}
+.c span{display:block;color:#444;margin-top:4px}
+/* EDITORIAL ARTICLE BOX (the magazine-style text with the medieval first letter, section 04) */
+.art{grid-column:1/-1;background:var(--cream);border-radius:16px;padding:clamp(22px,3vw,40px)}
+.art .page{columns:2;column-gap:32px;font:400 19px/1.65 Georgia,serif;text-align:justify;hyphens:auto}
+.art .page p+p{margin-top:14px}
+.art .page p:first-child::first-letter{font:700 5.4em/.8 'UnifrakturCook',serif;float:left;margin:.06em .1em 0 0;color:var(--hot);background:#fff;border:3px solid var(--ink);padding:.06em .1em .02em}
+.art h5{font:400 24px var(--head);text-transform:uppercase;margin-bottom:14px}
+
+/* ═══════════════════════════════ 8. CONTACT (footer) ═══════════════════════════════ */
+.ct{background:#000;color:#fff;margin-top:clamp(70px,9vw,130px);padding-top:clamp(60px,8vw,110px);padding-bottom:50px;text-align:center}
+.ct h2{font:400 clamp(54px,12vw,190px)/.95 var(--head);text-transform:uppercase;letter-spacing:-.03em}
+.ct h2 i{font-style:normal;color:var(--pink)}
+.clock{font:700 20px var(--sans);margin:14px 0 6px}
+.clock b{color:var(--pink)}
+.ct>p{max-width:560px;margin:0 auto 24px;font-size:22px}
+.lbl{font:400 18px var(--head);text-transform:uppercase;color:var(--pink);margin:34px 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:0 auto}
+.chip{font:700 17px var(--sans);color:#fff;border:2px solid #fff;border-radius:99px;padding:10px 20px;background:none;cursor:pointer}
+.chip:hover,.chip.on{background:var(--pink);border-color:var(--pink);color:#000}
+.mail{display:inline-block;margin-top:34px;font:700 clamp(20px,3.4vw,40px) var(--sans);border-bottom:3px solid var(--pink);padding-bottom:6px;background:none;border-top:0;border-left:0;border-right:0;color:#fff;cursor:pointer}
+.mail:hover{color:var(--pink)}
+.ct .btns{justify-content:center}
+/* the spinning round "OPEN TO WORK" badge. 16s = one full turn; make it smaller for faster */
+.badge{width:130px;height:130px;margin:0 auto 10px;animation:sp 16s linear infinite}
+.badge text{font:800 11px var(--sans);fill:#fff;letter-spacing:.12em}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* the "Email copied" pop-up */
+.toast{position:fixed;bottom:26px;right:26px;background:var(--hot);color:#fff;padding:14px 26px;border-radius:99px;font-weight:800;transform:translateY(100px);opacity:0;transition:.35s;z-index:20}
+.toast.show{transform:none;opacity:1}
+
+/* ═══════════════════════════════ 9. PHONE / SMALL SCREEN RULES ═══════════════════════════════
+   Everything inside @media(max-width:860px) only applies on screens narrower than 860px. */
+@media(max-width:860px){.seg{grid-template-columns:1fr}.under,.cols,.facts{display:block}.pola{width:90px}.clip{right:calc(14px + 76px)}.fh{padding-top:30px;padding-right:100px}.cols .lead,.cols .rest{grid-column:auto}.cols .rest{columns:1;margin-top:14px}.under .pic{margin-top:32px;max-width:300px}.facts>div{margin-bottom:16px}.tags span:nth-child(2){display:none}.side{position:static}.art .page{columns:1}nav div{gap:12px}nav{font-size:14px}.cards{grid-template-columns:1fr}}
+/* people who turned off animations on their device: no spinning badge, envelope just switches */
+@media(prefers-reduced-motion:reduce){.badge{animation:none}.stage,.stage *{transition:none!important}.e-label .mono::after{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ MENU ═══════════════════════════════
+     href="#about" jumps to the element with id="about" (and now also opens the envelope).
+     Change the words between > < to rename a menu item. -->
+<nav class="w"><a href="#top">Lina Orundas</a><div><a href="#about">About</a><a href="#work">Work</a><a href="#contact">Let's connect</a></div></nav>
+
+<!-- ═══════════════════════════════ COVER ═══════════════════════════════
+     NOTE (cover portrait): the photo on the cover is images/me.jpg. Use a portrait photo of you,
+     about 1000 x 1250 px (4:5), JPG, under 400 KB. -->
+<header class="hero w" id="top">
+  <!-- the 3 small pink labels at the top. Edit the words inside the [ ] -->
+  <div class="tags mono"><span>[ Branding, Social Media, SEO, Editorial Writing ]</span><span>[ Graphic Design, UX-UI, Photography, Illustration ]</span><span>[ Based in Sweden ]</span></div>
+  <!-- your animated name: the text inside <h1> is only a fallback. The real name text is in the script (var T) -->
+  <h1 id="name" aria-label="Lina Orundas">Lina Orundas</h1>
+  <div class="under">
+    <div class="txt">
+      <!-- BIG SENTENCE. Words inside <b> ... </b> are pink -->
+      <p>As a visual designer, I shape distinct brand identities, interactive digital interfaces, <b>and compelling stories.</b></p>
+      <!-- smaller intro text under it -->
+      <p class="sub">I'm Lina, a final-year New Media Design student in Sweden. I craft brand identities, digital interfaces, and social content, supercharging them with SEO and marketing strategy so they perform in the real world. Blending design, web, photography, and editorial work into a cohesive creative practice.</p>
+      <!-- NOTE (CV button): the "Download CV" button stays hidden until you paste a link to your CV PDF into var CV="" in the script at the bottom of this file. -->
+      <div class="btns"><a class="btn" href="#contact">Let's connect</a><a class="btn o" href="#work">See my work</a><a class="btn o" id="cvh" hidden>Download CV</a></div>
+    </div>
+    <div class="pic">
+      <div class="photo" role="img" aria-label="Lina Orundas"></div>
+      <div class="cap mono"><span>[ Lina ]</span><span>[ Creative designer ]</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════ ABOUT = THE ENVELOPE ═══════════════════════════════
+     HOW IT WORKS: you see a closed pink envelope that says "About me" and "[ open me ]".
+     Click (or tap) it: the flap opens, a note slides out, and your folder with the polaroid unfolds below.
+     It closes again when you: click the envelope again / press "Close envelope" / press Esc /
+     or scroll away from the section.
+
+     ✏️ WHAT YOU CAN EDIT HERE
+       - Words on the envelope: change "About me" and "[ open me ]" in the .e-label block
+       - The note that slides out: the .e-card block (a small greeting)
+       - The sticker on the flap: the ✦ inside .e-seal (any emoji / letter works)
+       - Background photo: images/about-bg.jpg (wide, dark or calm, 2000 x 1200 px, under 500 KB)
+       - Polaroid photo: images/me.jpg by default. To use another photo, change --pola-img at the top of the CSS
+     Don't rename the ids (stage, env, reveal, shut): the script at the bottom uses them. -->
+<section class="about w" id="about" style="margin-top:0">
+  <div class="stage" id="stage">
+
+    <!-- THE ENVELOPE (clickable). Layers from back to front: back, note card, front pocket, flap. -->
+    <div class="env" id="env" role="button" tabindex="0" aria-expanded="false" aria-controls="reveal" aria-label="About me. Open the envelope">
+      <div class="e-back"></div>
+      <div class="e-card"><span class="mono">[ hello ]</span><em>Hi, I'm Lina ✦</em></div>
+      <div class="e-pocket"></div>
+      <div class="e-label"><em>About me</em><span class="mono">[ open me ]</span></div>
+      <div class="e-flap"><span class="e-seal">✦</span></div>
+    </div>
+
+    <!-- WHAT APPEARS WHEN THE ENVELOPE OPENS -->
+    <div class="reveal" id="reveal"><div class="r-in"><div class="r-pad">
+
+      <div class="folder">
+        <div class="ftab mono">[ About me ]</div>
+        <div class="sheet">
+          <!-- paper clip (drawn with SVG, no image needed) -->
+          <svg class="clip" viewBox="0 0 26 70" fill="none" stroke="#9aa0a6" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 30V13a6 6 0 0 1 12 0v40a9 9 0 0 1-18 0V22"/></svg>
+          <!-- polaroid photo (image comes from --pola-img in the CSS) -->
+          <div class="pola"><div role="img" aria-label="Lina Orundas"></div></div>
+          <!-- heading: "About" in handwriting, name in big letters, small line under -->
+          <div class="fh"><em>About</em><h2>Lina Orundas</h2><span class="mono">New Media Design · Brand · UX/UI · Social · SEO · Photography</span></div>
+          <div class="cols">
+            <!-- .lead = the big first paragraph -->
+            <p class="lead">Positioned at the cross-section of brand identity, digital interfaces, and content, I create design solutions that strike a balance between high aesthetics and strategic function. Originally from Istanbul and currently based in Sweden, I bring a global, multi-city lens to my craft. My signature approach lies in blending the chaotic beauty and intricate depth of Istanbul with the sleek, quiet precision of Scandinavian minimalism, transforming rich cultural nuances into seamless digital experiences.</p>
+            <!-- .rest = the two smaller paragraphs in 2 columns. <strong> = bold -->
+            <div class="rest">
+              <p>I don’t just design digital experiences; <strong>I give them momentum.</strong> From crafting custom identities and sleek interfaces to directing video and optimizing search visibility, I handle every layer of the creative process to launch work that gets seen and measured.</p>
+              <p>A creative driven by art, music, fashion, and visual storytelling, I apply a keen eye for detail and color to layout design and typography. Experienced in cross-functional group projects, volunteer marketing, and social media management, I am comfortable working within structured briefs and meeting deadlines.</p>
+            </div>
+          </div>
+          <!-- THE 4 LISTS. To add a line: copy one <li>...</li> and change the words. To delete: remove the <li>. -->
+          <div class="facts">
+            <div><h3>What I bring</h3><ul><li>Brand and Digital in one person</li><li>Design plus SEO and marketing</li><li>Clear, user-first thinking</li><li>Team-ready and Multilingual</li><li>Out of Box Thinking</li><li>Translating abstract ideas into tangible reality</li><li>I design the look and write the hook</li><li>I bridge artistic intuition with business goals</li><li>Fast execution without sacrificing deep strategy</li><li>Designs that command attention and drive clicks</li></ul></div>
+            <div><h3>Skills</h3><ul><li>Graphic design and Brand Identity</li><li>UX - UI and Web Design</li><li>Social Media Content Design, Planning &amp; Creation</li><li>SEO and Digital Marketing</li><li>Photography &amp; Directing</li><li>Motion Design &amp; Graphics</li><li>Illustrations and Editorial Writing</li><li>Mixed Media (Print &amp; Digital)</li></ul></div>
+            <!-- (I removed the duplicate "Capcut / CapCut" line: it was listed twice) -->
+            <div><h3>Software</h3><ul><li>Figma</li><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>Adobe InDesign</li><li>Adobe Premiere Pro</li><li>Adobe Fresco</li><li>Adobe Lightroom</li><li>CapCut</li><li>Final Cut Pro</li></ul></div>
+            <!-- <i> = the lighter level text (Fluent, B1, A1) -->
+            <div><h3>Languages</h3><ul><li>English <i>Fluent</i></li><li>Turkish <i>Fluent</i></li><li>German <i>B1</i></li><li>Swedish <i>A1</i></li><li>Norwegian <i>A1</i></li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- buttons under the folder: jump to work / close the envelope again -->
+      <div class="r-actions"><a class="btn" href="#work">See my work ↓</a><button class="btn o" id="shut" type="button">Close envelope</button></div>
+
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ WORK LIST ═══════════════════════════════
+     The 5 big lines. Each link jumps to the matching section (w1 ... w5).
+     To rename a category, change the words here AND the "t:" title in SECTIONS in the script. -->
+<section class="w" id="work">
+  <h2 class="t">Selected <i>work</i></h2>
+  <div class="toc">
+      <a href="#w1"><span>01</span> Graphic Design &amp; Illustration</a>
+      <a href="#w2"><span>02</span> Branding &amp; Marketing</a>
+      <a href="#w3"><span>03</span> Social Media &amp; Photography</a>
+      <a href="#w4"><span>04</span> Editorial Writing</a>
+      <a href="#w5"><span>05</span> UX / UI</a>
+  </div>
+</section>
+
+<!-- the 5 work sections are built here automatically by the script from the SECTIONS list -->
+<div class="w" id="segs"><!-- ✏️ sections are written from the SECTIONS list at the bottom of this file --></div>
+
+<!-- ═══════════════════════════════ CONTACT ═══════════════════════════════
+     Email: change linaorundas70@gmail.com in 3 places (the button, the Send button here, and var E in the script).
+     Social buttons: change the href="..." links. Add a new one by copying a <a class="btn o" ...> line. -->
+<footer class="ct w" id="contact">
+  <!-- the spinning round text. Change the words inside <textPath> -->
+  <svg class="badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bp" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#bp" textLength="270" lengthAdjust="spacing">OPEN TO WORK · LET'S CONNECT · </textPath></text><text x="60" y="70" text-anchor="middle" font-size="28" fill="#F4A7E1">✦</text></svg>
+  <h2>Let's <br><i>connect</i></h2>
+  <div class="clock">Sweden · <b id="clk">00:00:00</b></div>
+  <p>Open to full-time, part-time and freelance work, remote worldwide. Or just say hi. I usually reply within 24–48 hours.</p>
+  <div class="lbl">What is it about? Pick one</div>
+  <!-- the topic buttons are made by the script (list T below) -->
+  <div class="chips" id="chips"></div>
+  <!-- ✏️ email (click = copies it) -->
+  <button class="mail" id="copy" title="Click to copy">linaorundas70@gmail.com</button>
+  <!-- NOTE (footer buttons): Portal Press goes to https://www.instagram.com/portalpress/ . Behance and LinkedIn are your own links. -->
+  <div class="btns"><a class="btn" id="send" href="mailto:linaorundas70@gmail.com">Send an email</a><a class="btn o" href="https://www.behance.net/linaorundas">Behance</a><a class="btn o" href="https://www.linkedin.com/in/lina-orundas-022067332/">LinkedIn</a><a class="btn o" href="https://www.instagram.com/portalpress/">Portal Press</a><a class="btn o" href="https://instagram.com/luakovsky">Instagram</a></div>
+</footer>
+<div class="toast" id="toast">Email copied ✓</div>
+
+<script>
+/* ═══════════════════════════════ A. LINKS + CV (easy settings) ═══════════════════════════════ */
+/* ✏️ WORK SECTIONS: edit text here. Card = [title, one line, image file]. First card is shown big. */
+var B="https://www.behance.net/linaorundas";   /* B = your Behance profile; used by cards that have no own link */
+/* ✏️ UX LINKS: paste your Behance links here. UX_ALL = your profile, UX1 = case study, UX2 and UX3 = the two UI projects */
+var UX_ALL="https://www.behance.net/linaorundas",UX1="https://www.behance.net/linaorundas",UX2="https://www.behance.net/linaorundas",UX3="https://www.behance.net/linaorundas";
+/* ✏️ CV: paste a link to your CV (PDF) between the quotes and a "Download CV" button appears on the cover. Leave empty to hide it. */
+var CV="";
+
+/* ═══════════════════════════════ B. WORK SECTIONS (the content of the 5 blocks) ═══════════════════════════════
+   Image notes (only visible in the code, not on the website):
+   Every image goes in a folder called "images" next to this file, saved as JPG with EXACTLY the file name written below.
+   FIRST card of each section = BIG, landscape, about 1600 x 1000 px (16:10).
+   SECOND and THIRD card = smaller, portrait, about 800 x 1000 px (4:5).
+   Keep each file under 300 KB. If a file is missing, the card shows a pink-to-black gradient instead.
+
+   HOW TO READ ONE SECTION:
+     id    = anchor name (w1...w5), must match the menu list above   n = the number shown (01...)
+     t     = big title            tag = bold line under the title    p = short paragraph
+     d     = bullet list "What I do" (add/remove quoted items, keep the commas)
+     tools = the software line
+     btn   = OPTIONAL black button on the left: ["button text","link"]
+     c     = the cards. Each card = ["title","one line","image file name WITHOUT .jpg","fallback colour","link (optional)","small link text (optional)"]
+             "design-1" means the file images/design-1.jpg
+             No link given = the card opens your Behance profile (B)
+     art   = OPTIONAL editorial text box (only section 04 uses it)
+
+   Suggestions for what to put in each image (swap them for your real projects):
+   01 Graphic design:  design-1 (BIG) your best poster or print layout with strong type | illus-1 a digital illustration | draw-1 a drawing or painting, photographed or scanned in good light
+   02 Branding:        brand-case (BIG) the sustainable coffee shop identity: logo, palette and a cup or packaging mockup together | brand-1 another brand or logo project as a brand board | brand-2 an SEO or campaign visual (content plan, analytics screenshot or campaign graphic)
+   03 Social + photo:  social-1 (BIG) a cover frame from your best reel, story or campaign | photo-1 your strongest photograph or styling shot | photo-5 art, music or DJing moment (a DJ photo or an artwork)
+   04 Editorial:       editorial-1 (BIG) the Portal Press cover or a screenshot of its Instagram grid | editorial-2 a page from one essay or styling journal | editorial-3 a two-column magazine spread exported from InDesign
+   05 UX / UI:         ux-case (BIG) the UX case study as a device mockup of the final Figma prototype | ux-2 UI project 1, best 2 to 3 screens on one mockup | ux-3 UI project 2, best 2 to 3 screens on one mockup
+   Links: the UX cards open the Behance links (UX1, UX2, UX3) above. The Portal Press card opens https://www.instagram.com/portalpress/ . The coffee shop card opens your Behance profile (B), replace it with the project link when you have it.
+   Want a 4th card in a section? Copy one ["...","...","image","#colour"] line and give it a new image name (it will appear in the grid automatically).
+   Editorial article box (art:[...] in section 04): replace the second paragraph with the real opening of one of your pieces.
+   ═════════════════════════════════════════════════════════════════════════════════ */
+var SECTIONS=[
+/* SECTION 01 Graphic design: cards use design-1.jpg (BIG), illus-1.jpg, draw-1.jpg */
+{id:"w1",n:"01",t:"Graphic design &amp; illustration",tag:"Type first. Everything else follows.",
+ p:"Posters, print catalogs and publication layouts built on precise typography and tactile grids. Away from the computer I draw and paint, and I bring that hand-made energy into digital illustration.",
+ d:["Posters and print","Publication and catalog layout","Typography","Digital illustration","Drawing and painting"],tools:"Illustrator, Photoshop, InDesign",
+ c:[["Posters and print","Layouts built on a strict grid and strong type.","design-1","#F4A7E1"],["Digital illustration","Drawn by hand, finished on screen.","illus-1","#1a1a1a"],["Drawing and painting","Paper and canvas work.","draw-1","#E8329E"]]},
+/* SECTION 02 Branding: cards use brand-case.jpg (BIG, coffee shop), brand-1.jpg, brand-2.jpg */
+{id:"w2",n:"02",t:"Branding &amp; marketing",tag:"Identity that works as hard as it looks.",
+ p:"Visual identities, logotypes and color systems that carry across packaging, merchandise and digital, plus the marketing that puts them to work: SEO, digital marketing optimization, campaigns and content.",
+ d:["Brand identity and logo","Color and typography systems","Social media strategy","SEO, on-page and off-page","Digital marketing optimization","Campaign and content planning"],tools:"Illustrator, Photoshop, Figma, SEO tools",
+ c:[["Sustainable coffee shop: full brand identity","Group case study with logo, color palette, typography and social media. My focus was social media.","brand-case","#5a2a48",B],["Brand projects","Logos and identity systems.","brand-1","#F4A7E1"],["SEO and campaigns","Content planning and search optimization.","brand-2","#1a1a1a"]]},
+/* SECTION 03 Social media and photography: cards use social-1.jpg (BIG), photo-1.jpg, photo-5.jpg */
+{id:"w3",n:"03",t:"Social media &amp; photography",tag:"Content that moves, and an eye that is trained.",
+ p:"Campaigns and short-form video shaped for each platform, plus photography, styling, fashion, art and music (I also DJ) that feed everything I design.",
+ d:["Social media campaigns","Short-form video","Photography and styling","Fashion and art","Music and DJing"],tools:"Premiere Pro, CapCut, Photoshop",
+ c:[["Social media projects","Reels, stories and campaign content.","social-1","#E8329E"],["Photography and styling","Analog and digital frames.","photo-1","#1a1a1a"],["Art, music and DJing","The things that shape my taste.","photo-5","#F4A7E1"]]},
+/* SECTION 04 Editorial: cards use editorial-1.jpg (BIG, Portal Press), editorial-2.jpg, editorial-3.jpg. The Portal Press button and card link to https://www.instagram.com/portalpress/ */
+{id:"w4",n:"04",t:"Editorial writing",tag:"Portal Press, my editorial project: written with magazine pacing.",
+ p:"Mood essays, aesthetic stories and styling journals, laid out as magazine spreads. I write, edit and design the page, so the words and the layout work together.",
+ d:["Mood essays","Styling journals","Aesthetic stories","Spreads and layouts"],tools:"InDesign, Photoshop, Figma",btn:["Portal Press","https://www.instagram.com/portalpress/"],
+ c:[["Portal Press","Read it on Instagram.","editorial-1","#5a2a48","https://www.instagram.com/portalpress/"],["Selected pieces","Essays and journals.","editorial-2","#F4A7E1"],["Spreads and layouts","Two-column magazine pages.","editorial-3","#1a1a1a"]],
+ art:["Portal Press is where I write about mood, style and the small details that make a place or an outfit feel like something.","Replace this text with the opening of one of your pieces. The first letter turns into a medieval-style capital, like an old book."]},
+/* SECTION 05 UX / UI: cards use ux-case.jpg (BIG, links to UX1), ux-2.jpg (UX2), ux-3.jpg (UX3). The button links to UX_ALL */
+{id:"w5",n:"05",t:"UX / UI",tag:"User-first interfaces, from research to tested prototype.",
+ p:"I design interfaces around real users: research first, then flows, wireframes and prototypes in Figma, tested with people and refined from what I learn. Accessibility and clear navigation are part of every decision. The case study shows the full process, and the two UI projects focus on visual design and interface systems.",
+ d:["User research and personas","User flows and information architecture","Wireframes and prototypes","UI design and design systems","Usability testing","Accessibility"],tools:"Figma",btn:["All UX work on Behance",UX_ALL],
+ c:[["UX case study","The full process: user research, flows, wireframes and a tested Figma prototype.","ux-case","#E8329E",UX1,"View case study on Behance"],["UI project 1","Interface design with a consistent component system and clear hierarchy.","ux-2","#1a1a1a",UX2,"View on Behance"],["UI project 2","Interface design with a focus on layout, type and color.","ux-3","#F4A7E1",UX3,"View on Behance"]]}
+];
+
+/* ── Builds the HTML of the 5 sections from the list above. You normally never need to touch this part. ── */
+var h="";SECTIONS.forEach(function(s){
+ h+='<article class="seg" id="'+s.id+'"><div class="side"><div class="num">'+s.n+'</div><h3>'+s.t+'</h3><div class="tag">'+s.tag+'</div><p>'+s.p+'</p><h4>What I do</h4><ul>'+s.d.map(function(x){return'<li>'+x+'</li>'}).join('')+'</ul><div class="tools">'+s.tools+'</div>'+(s.btn?'<a class="btn k sm" target="_blank" rel="noopener" href="'+s.btn[1]+'">'+s.btn[0]+' ↗</a>':'')+'</div><div class="cards">'+
+ s.c.map(function(c){return'<a class="c" target="_blank" rel="noopener" href="'+(c[4]||B)+'"><div class="im" style="background-image:url(images/'+c[2]+'.jpg),linear-gradient(160deg,'+c[3]+',#000)"></div><b>'+c[0]+'</b><span>'+c[1]+'</span>'+(c[5]?'<em class="go">'+c[5]+' ↗</em>':'')+'</a>'}).join('')+
+ (s.art?'<div class="art"><h5>Portal Press</h5><div class="page"><p>'+s.art[0]+'</p><p>'+s.art[1]+'</p></div></div>':'')+'</div></article>'});
+document.getElementById('segs').innerHTML=h;
+/* shows the "Download CV" button only if you pasted a link in var CV */
+if(CV){var cv=document.getElementById('cvh');cv.href=CV;cv.hidden=false}
+
+/* ═══════════════════════════════ C. CONTACT ═══════════════════════════════
+   Topic chips change the email subject, the email copies on click, and a live Swedish clock runs. */
+/* E = your email. T = the topic buttons (add, remove or rename the quoted words). */
+var E="linaorundas70@gmail.com",T=["Full-time role","Part-time role","Freelance project","Branding","Graphic design","Social media","UX / UI","Editorial writing","Photography","Collaboration"],ch=document.getElementById('chips'),sd=document.getElementById('send');
+T.forEach(function(t,i){var b=document.createElement('button');b.className='chip'+(i?'':' on');b.textContent=t;b.onclick=function(){[].forEach.call(ch.children,function(x){x.classList.remove('on')});b.classList.add('on');sd.href='mailto:'+E+'?subject='+encodeURIComponent('Hello Lina: '+t)};ch.appendChild(b)});
+sd.href='mailto:'+E+'?subject='+encodeURIComponent('Hello Lina: '+T[0]);
+/* click the big email = copies it + shows the pop-up for 2.2 seconds (2200) */
+document.getElementById('copy').onclick=function(){try{navigator.clipboard.writeText(E)}catch(e){}var o=document.getElementById('toast');o.classList.add('show');setTimeout(function(){o.classList.remove('show')},2200)};
+/* live clock. 'Europe/Stockholm' = the time zone shown. Change it to another city's time zone if you move */
+function ck(){document.getElementById('clk').textContent=new Date().toLocaleTimeString('en-GB',{timeZone:'Europe/Stockholm',hour12:false})+' CET'}setInterval(ck,1000);ck();
+
+/* ═══════════════════════════════ D. THE ENVELOPE (open / close) ═══════════════════════════════
+   The envelope is just the class "open" on #stage. CSS does all the animation.
+   It OPENS when:  you click / tap the envelope, press Enter or Space on it, or click "About" in the menu.
+   It CLOSES when: you click the envelope again, press "Close envelope", press Esc,
+                   or scroll until the whole About section is out of the screen. */
+(function(){
+var sec=document.getElementById('about'),stage=document.getElementById('stage'),env=document.getElementById('env');
+
+function open(){
+  stage.classList.add('open');env.setAttribute('aria-expanded','true');
+  /* after a moment, gently scroll so the opened envelope sits near the top of the screen.
+     ✏️ 90 = pixels of space under the menu bar. 160 = wait (ms) before scrolling */
+  setTimeout(function(){window.scrollTo({top:window.pageYOffset+stage.getBoundingClientRect().top-90,behavior:'smooth'})},160);
+}
+/* auto = true when it closes by itself because you scrolled away (no animation, page doesn't jump) */
+function close(auto){
+  if(!stage.classList.contains('open'))return;
+  var top=sec.getBoundingClientRect().top,h0=sec.offsetHeight;
+  if(auto)stage.classList.add('snap');             /* snap = skip the animation */
+  stage.classList.remove('open');env.setAttribute('aria-expanded','false');
+  if(auto){
+    var diff=sec.offsetHeight-h0;                  /* how much shorter the page got */
+    if(top<0)window.scrollTo({top:window.pageYOffset+diff,behavior:'instant'});   /* keeps your reading spot */
+    requestAnimationFrame(function(){requestAnimationFrame(function(){stage.classList.remove('snap')})});
+  }
+}
+function toggle(){stage.classList.contains('open')?close(false):open()}
+
+env.addEventListener('click',toggle);
+env.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+document.getElementById('shut').addEventListener('click',function(){close(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close(false)});
+/* the "About" link in the menu also opens the envelope */
+[].forEach.call(document.querySelectorAll('a[href="#about"]'),function(a){a.addEventListener('click',function(){if(!stage.classList.contains('open')){stage.classList.add('open');env.setAttribute('aria-expanded','true')}})});
+/* closes by itself when the About section is completely off-screen (you scrolled down to the work, or back up) */
+if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(!es[0].isIntersecting)close(true)},{threshold:0}).observe(sec)}
+})();
+
+/* ═══════════════════════════════ E. ANIMATED NAME ON THE COVER ═══════════════════════════════
+   Name: changes font, stays one fixed size and width, so nothing moves. ✏️ edit font list */
+(function(){
+/* F = the fonts it cycles through: [font name, weight]. Add/remove fonts here (they must be loaded in the Google Fonts link at the top). */
+/* T = the text shown (your name). 900 = how fast it switches font, in milliseconds (further down) */
+var F=[["'Archivo Black'",400],["'Pinyon Script'",400],["'Doto'",900],["'UnifrakturCook'",700],["'DM Mono'",500],["'Varela Round'",400]],T="Lina Orundas",n=document.getElementById('name'),i=0,S0=100,W=0;
+var m=document.createElement('span');m.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font-size:100px;left:-9999px';m.textContent=T;document.body.appendChild(m);
+function wid(f){m.style.fontFamily=f[0]+",serif";m.style.fontWeight=f[1];m.style.letterSpacing='0';return m.getBoundingClientRect().width}
+/* every font is scaled so the name touches BOTH edges of the screen */
+function fit(){W=n.parentElement.clientWidth-parseFloat(getComputedStyle(n.parentElement).paddingLeft)*2;var mx=0;F.forEach(function(f){mx=Math.max(mx,wid(f))});S0=100*W/mx;n.style.height=(S0*1.35)+'px';show(i)}
+function show(k){var f=F[k%F.length],w100=wid(f),S=Math.min(100*W/w100,S0*1.35),w=w100*S/100,ls=(W-w)/(T.length-1);n.style.fontSize=S+'px';n.style.fontFamily=f[0]+",serif";n.style.fontWeight=f[1];n.style.letterSpacing=ls+'px'}
+function start(){fit();if(!matchMedia('(prefers-reduced-motion:reduce)').matches)setInterval(function(){i++;show(i)},900);addEventListener('resize',fit)}
+Promise.all(F.map(function(f){return document.fonts.load('100px '+f[0],T)})).then(start,start);
+})();
+</script>
+</body>
+</html>
